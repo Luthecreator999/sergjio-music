@@ -1,3 +1,4 @@
+import { asset } from "@/lib/asset";
 import Link from "next/link";
 import Image from "next/image";
 import { SITE } from "@/lib/site";
@@ -19,7 +20,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
       <section className="container-site pt-24 sm:pt-28">
         <div className="relative tile-quiet aspect-[16/12] sm:aspect-[16/9] lg:aspect-[16/7] flex items-end overflow-hidden">
           <Image
-            src="/images/sergjio-cornet-hero.jpg"
+            src={asset("/images/sergjio-cornet-hero.jpg")}
             alt="Sergjio"
             fill
             priority
@@ -78,7 +79,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-5">
           <div className="lg:col-span-5 tile-quiet relative aspect-[4/5] lg:aspect-auto">
             <Image
-              src="/images/sergjio-saz-portrait.jpg"
+              src={asset("/images/sergjio-saz-portrait.jpg")}
               alt="Sergjio with instrument"
               fill
               sizes="(min-width: 1024px) 42vw, 100vw"
@@ -116,7 +117,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
             className="tile relative md:col-span-2 md:row-span-2 group"
           >
             <Image
-              src="/images/release-cover-tar-jungle.png"
+              src={asset("/images/release-cover-tar-jungle.png")}
               alt="YouTube video"
               fill
               sizes="(min-width: 768px) 66vw, 100vw"
@@ -135,7 +136,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
             className="tile relative group"
           >
             <Image
-              src="/images/youtube-thumb-1.png"
+              src={asset("/images/youtube-thumb-1.png")}
               alt="YouTube video"
               fill
               sizes="(min-width: 768px) 33vw, 100vw"
@@ -154,7 +155,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
             className="tile relative group"
           >
             <Image
-              src="/images/youtube-thumb-2.png"
+              src={asset("/images/youtube-thumb-2.png")}
               alt="YouTube video"
               fill
               sizes="(min-width: 768px) 33vw, 100vw"
@@ -194,7 +195,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
       <section className="container-site py-16 sm:py-24">
         <div className="relative tile-quiet aspect-[16/9] sm:aspect-[16/7] flex items-center justify-center text-center overflow-hidden">
           <Image
-            src="/images/cta-background.png"
+            src={asset("/images/cta-background.png")}
             alt=""
             fill
             sizes="100vw"

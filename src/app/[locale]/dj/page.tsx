@@ -1,3 +1,4 @@
+import { asset } from "@/lib/asset";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
@@ -27,7 +28,7 @@ export default async function DJPage({ params }: { params: Promise<{ locale: str
       <section className="container-site pt-24 sm:pt-28">
         <div className="relative tile-quiet aspect-[16/12] sm:aspect-[16/9] lg:aspect-[16/8] flex items-end overflow-hidden">
           <Image
-            src="/images/dj-booth-hero.jpg"
+            src={asset("/images/dj-booth-hero.jpg")}
             alt="DJ Sergjio"
             fill
             priority
@@ -131,7 +132,7 @@ export default async function DJPage({ params }: { params: Promise<{ locale: str
             return (
               <div key={src} className={`tile relative overflow-hidden ${layout}`}>
                 <Image
-                  src={src}
+                  src={asset(src)}
                   alt="DJ Sergjio live"
                   fill
                   sizes="(min-width: 1024px) 25vw, (min-width: 768px) 33vw, 50vw"

@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { asset } from "@/lib/asset";
 
 type Props = {
   src: string;
@@ -25,8 +26,8 @@ export default function SiteVideo({ src, width, height, poster, className = "" }
       style={{ aspectRatio: aspect }}
     >
       <video
-        src={src}
-        poster={poster}
+        src={asset(src)}
+        poster={poster ? asset(poster) : undefined}
         controls
         playsInline
         preload="metadata"

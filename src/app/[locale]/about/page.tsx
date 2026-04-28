@@ -1,3 +1,4 @@
+import { asset } from "@/lib/asset";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
@@ -52,7 +53,7 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-5">
           <div className="lg:col-span-5 tile-quiet relative aspect-[3/4]">
             <Image
-              src="/images/about-portrait.jpg"
+              src={asset("/images/about-portrait.jpg")}
               alt="Sergjio portrait"
               fill
               sizes="(min-width: 1024px) 42vw, 100vw"
@@ -98,7 +99,7 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
               >
                 <div className={`relative ${isFeatured ? "aspect-[4/5]" : "aspect-square"}`}>
                   <Image
-                    src={i.image}
+                    src={asset(i.image)}
                     alt={i.key}
                     fill
                     sizes={

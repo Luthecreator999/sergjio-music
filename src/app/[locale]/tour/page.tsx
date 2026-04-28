@@ -1,3 +1,4 @@
+import { asset } from "@/lib/asset";
 import Image from "next/image";
 import { upcomingEvents, pastEvents } from "@/lib/events";
 import EventCard from "@/components/EventCard";
@@ -18,7 +19,7 @@ export default async function TourPage({ params }: { params: Promise<{ locale: s
       <section className="container-site pt-24 sm:pt-28">
         <div className="relative tile-quiet aspect-[16/12] sm:aspect-[16/8] lg:aspect-[16/6] flex items-end overflow-hidden">
           <Image
-            src="/images/tour-hero.jpg"
+            src={asset("/images/tour-hero.jpg")}
             alt=""
             fill
             priority

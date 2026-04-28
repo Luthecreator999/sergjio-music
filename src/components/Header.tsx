@@ -5,6 +5,7 @@ import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { NAV_KEYS, t, locales, type Locale, localizedHref } from "@/lib/i18n";
+import { asset } from "@/lib/asset";
 
 export default function Header({ locale }: { locale: Locale }) {
   const [open, setOpen] = useState(false);
@@ -47,7 +48,7 @@ export default function Header({ locale }: { locale: Locale }) {
           onClick={() => setOpen(false)}
         >
           <Image
-            src="/images/logo.avif"
+            src={asset("/images/logo.avif")}
             alt="Sergjio Music"
             width={36}
             height={36}

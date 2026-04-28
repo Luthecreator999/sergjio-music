@@ -1,3 +1,4 @@
+import { asset } from "@/lib/asset";
 import Image from "next/image";
 import { notFound } from "next/navigation";
 import BookingForm from "@/components/BookingForm";
@@ -25,7 +26,7 @@ export default async function BookingPage({ params }: { params: Promise<{ locale
           <div className="lg:col-span-5 flex flex-col gap-4 sm:gap-5">
             <div className="tile-quiet relative aspect-[3/4]">
               <Image
-                src="/images/booking-portrait.jpg"
+                src={asset("/images/booking-portrait.jpg")}
                 alt="Sergjio booking"
                 fill
                 sizes="(min-width: 1024px) 42vw, 100vw"
@@ -52,7 +53,7 @@ export default async function BookingPage({ params }: { params: Promise<{ locale
               </p>
 
               <a
-                href="/press/sergjio-presskit.pdf"
+                href={asset("/press/sergjio-presskit.pdf")}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="btn mt-6"

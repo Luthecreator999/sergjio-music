@@ -33,7 +33,7 @@ export default async function DJPage({ params }: { params: Promise<{ locale: str
             fill
             priority
             sizes="100vw"
-            className="object-cover object-[center_25%] sm:object-center"
+            className="object-cover object-center"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-ink via-ink/40 to-transparent sm:bg-gradient-to-b sm:from-ink/40 sm:via-ink/30 sm:to-ink/85" />
           <div className="relative p-6 sm:p-10 lg:p-14 w-full">
@@ -53,10 +53,10 @@ export default async function DJPage({ params }: { params: Promise<{ locale: str
         </div>
       </section>
 
-      {/* Soundcloud bento */}
+      {/* Soundcloud — equal split */}
       <section className="container-site pb-16">
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 sm:gap-5">
-          <div className="lg:col-span-2 tile-quiet overflow-hidden">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-5">
+          <div className="tile-quiet overflow-hidden">
             <iframe
               width="100%"
               height="500"
@@ -119,28 +119,20 @@ export default async function DJPage({ params }: { params: Promise<{ locale: str
         <SiteVideo {...VIDEOS.djPortfolio} />
       </section>
 
-      {/* Gallery — true bento grid */}
+      {/* Gallery — uniform grid, all squares */}
       <section className="container-site py-12">
-        <div className="grid grid-cols-2 md:grid-cols-4 grid-flow-dense gap-3 sm:gap-4">
-          {GALLERY.map((src, i) => {
-            const layout =
-              i === 0
-                ? "col-span-2 row-span-2 aspect-square"
-                : i === 3
-                  ? "col-span-2 aspect-[2/1]"
-                  : "aspect-square";
-            return (
-              <div key={src} className={`tile relative overflow-hidden ${layout}`}>
-                <Image
-                  src={asset(src)}
-                  alt="DJ Sergjio live"
-                  fill
-                  sizes="(min-width: 1024px) 25vw, (min-width: 768px) 33vw, 50vw"
-                  className="object-cover hover:scale-105 transition-transform duration-500"
-                />
-              </div>
-            );
-          })}
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-4 sm:gap-5">
+          {GALLERY.map((src) => (
+            <div key={src} className="tile relative aspect-square overflow-hidden">
+              <Image
+                src={asset(src)}
+                alt="DJ Sergjio live"
+                fill
+                sizes="(min-width: 1024px) 33vw, (min-width: 768px) 33vw, 50vw"
+                className="object-cover hover:scale-105 transition-transform duration-500"
+              />
+            </div>
+          ))}
         </div>
       </section>
 

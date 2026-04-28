@@ -52,7 +52,7 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
             fill
             priority
             sizes="100vw"
-            className="object-cover object-[center_15%] sm:object-center"
+            className="object-cover object-center"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-ink via-ink/40 to-transparent sm:bg-gradient-to-b sm:from-ink/40 sm:via-ink/30 sm:to-ink/90" />
           <div className="relative p-6 sm:p-10 lg:p-14 w-full">
@@ -62,19 +62,19 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
         </div>
       </section>
 
-      {/* Story bento — text-focused (portrait moved to hero) */}
+      {/* Story bento — equal split */}
       <section className="container-site py-16">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-5">
-          <div className="lg:col-span-5 tile-quiet relative aspect-[3/4]">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-5">
+          <div className="tile-quiet relative aspect-[3/4]">
             <Image
               src={asset("/images/sergjio-saz-portrait.jpg")}
               alt="Sergjio with instrument"
               fill
-              sizes="(min-width: 1024px) 42vw, 100vw"
+              sizes="(min-width: 1024px) 50vw, 100vw"
               className="object-cover"
             />
           </div>
-          <div className="lg:col-span-7 tile p-8 sm:p-12">
+          <div className="tile p-8 sm:p-12">
             <h2 className="uppercase-brand text-display-md text-white mb-6">{tr.about.storyTitle}</h2>
             <div className="space-y-5 text-base sm:text-lg text-cream/85 normal-case font-normal leading-relaxed">
               <p>{tr.about.p1}</p>
@@ -98,47 +98,29 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
         </div>
       </section>
 
-      {/* Instruments — Bento mosaic */}
+      {/* Instruments — uniform grid */}
       <section className="container-site py-16">
         <h2 className="uppercase-brand text-display-lg text-white mb-10">{tr.about.instrumentsTitle}</h2>
-        <div className="grid grid-cols-2 md:grid-cols-4 grid-flow-dense gap-4 sm:gap-5">
-          {INSTRUMENTS.map((i, idx) => {
-            const isFeatured = idx === 0; // Tar = hero
-            return (
-              <article
-                key={i.key}
-                className={`tile flex flex-col ${
-                  isFeatured ? "col-span-2 md:col-span-2 md:row-span-2" : ""
-                }`}
-              >
-                <div className={`relative ${isFeatured ? "aspect-[4/5]" : "aspect-square"}`}>
-                  <Image
-                    src={asset(i.image)}
-                    alt={i.key}
-                    fill
-                    sizes={
-                      isFeatured
-                        ? "(min-width: 768px) 50vw, 100vw"
-                        : "(min-width: 768px) 25vw, 50vw"
-                    }
-                    className="object-cover"
-                  />
-                </div>
-                <div className={`p-5 sm:p-6 ${isFeatured ? "lg:p-8" : ""} flex-1`}>
-                  <h3 className={`uppercase-brand text-white ${isFeatured ? "text-2xl" : "text-base"}`}>
-                    {i.key}
-                  </h3>
-                  <p
-                    className={`text-cream/70 normal-case font-normal leading-relaxed mt-2 ${
-                      isFeatured ? "text-base" : "text-xs"
-                    }`}
-                  >
-                    {INSTRUMENT_DESCRIPTIONS[i.key][locale]}
-                  </p>
-                </div>
-              </article>
-            );
-          })}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5">
+          {INSTRUMENTS.map((i) => (
+            <article key={i.key} className="tile flex flex-col">
+              <div className="relative aspect-square">
+                <Image
+                  src={asset(i.image)}
+                  alt={i.key}
+                  fill
+                  sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
+                  className="object-cover"
+                />
+              </div>
+              <div className="p-6 flex-1">
+                <h3 className="uppercase-brand text-lg text-white">{i.key}</h3>
+                <p className="text-sm text-cream/70 normal-case font-normal leading-relaxed mt-2">
+                  {INSTRUMENT_DESCRIPTIONS[i.key][locale]}
+                </p>
+              </div>
+            </article>
+          ))}
         </div>
       </section>
 

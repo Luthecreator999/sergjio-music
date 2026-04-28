@@ -24,7 +24,7 @@ export default async function TourPage({ params }: { params: Promise<{ locale: s
             fill
             priority
             sizes="100vw"
-            className="object-cover object-[center_30%] sm:object-center"
+            className="object-cover object-center"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-ink via-ink/50 to-transparent sm:bg-gradient-to-b sm:from-ink/40 sm:via-ink/30 sm:to-ink/85" />
           <div className="relative p-6 sm:p-10 lg:p-14 w-full">

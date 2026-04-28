@@ -22,7 +22,7 @@ export default async function BookingPage({ params }: { params: Promise<{ locale
             fill
             priority
             sizes="100vw"
-            className="object-cover object-[center_15%] sm:object-center"
+            className="object-cover object-center"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-ink via-ink/45 to-transparent sm:bg-gradient-to-b sm:from-ink/40 sm:via-ink/30 sm:to-ink/85" />
           <div className="relative p-6 sm:p-10 lg:p-14 w-full">
@@ -34,8 +34,8 @@ export default async function BookingPage({ params }: { params: Promise<{ locale
       </section>
 
       <section className="container-site py-16">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-5">
-          <div className="lg:col-span-5 flex flex-col gap-4 sm:gap-5">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-5">
+          <div className="flex flex-col gap-4 sm:gap-5">
             <div className="tile-quiet relative aspect-[3/4]">
               <Image
                 src={asset("/images/sergjio-saz-portrait.jpg")}
@@ -75,7 +75,7 @@ export default async function BookingPage({ params }: { params: Promise<{ locale
             </div>
           </div>
 
-          <div className="lg:col-span-7 tile p-8 sm:p-12">
+          <div className="tile p-8 sm:p-12">
             <h2 className="uppercase-brand text-display-md text-white mb-8">{tr.booking.formTitle}</h2>
             <BookingForm locale={locale} />
           </div>

@@ -25,7 +25,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
             fill
             priority
             sizes="100vw"
-            className="object-cover object-[center_20%] sm:object-center"
+            className="object-cover object-center"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-ink via-ink/40 to-transparent sm:bg-gradient-to-b sm:from-ink/40 sm:via-ink/30 sm:to-ink/90" />
 
@@ -65,28 +65,26 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
           <p className="uppercase-brand text-cream/60">{tr.common.noUpcoming}</p>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-5">
-            {events.map((e, i) => (
-              <div key={e.id} className={i === 0 ? "md:col-span-2 md:row-span-2" : ""}>
-                <EventCard event={e} locale={locale} />
-              </div>
+            {events.map((e) => (
+              <EventCard key={e.id} event={e} locale={locale} />
             ))}
           </div>
         )}
       </section>
 
-      {/* ABOUT — bento split */}
+      {/* ABOUT — equal split */}
       <section className="container-site py-16 sm:py-24">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-5">
-          <div className="lg:col-span-5 tile-quiet relative aspect-[4/5] lg:aspect-auto">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-5">
+          <div className="tile-quiet relative aspect-[4/5] lg:aspect-auto">
             <Image
               src={asset("/images/sergjio-saz-portrait.jpg")}
               alt="Sergjio with instrument"
               fill
-              sizes="(min-width: 1024px) 42vw, 100vw"
+              sizes="(min-width: 1024px) 50vw, 100vw"
               className="object-cover"
             />
           </div>
-          <div className="lg:col-span-7 tile p-8 sm:p-12 flex flex-col justify-center">
+          <div className="tile p-8 sm:p-12 flex flex-col justify-center">
             <h2 className="uppercase-brand text-display-lg text-white">{tr.home.aboutTitle}</h2>
             <p className="text-base sm:text-lg text-cream/85 normal-case font-normal leading-relaxed mt-6">
               {tr.home.aboutP1}
@@ -106,67 +104,36 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
         </div>
       </section>
 
-      {/* YOUTUBE — bento mosaic */}
+      {/* YOUTUBE — equal grid */}
       <section className="container-site py-16 sm:py-24">
         <h2 className="uppercase-brand text-display-lg text-white mb-10">{tr.home.youtubeTitle}</h2>
-        <div className="grid grid-cols-1 md:grid-cols-3 md:grid-rows-2 gap-4 sm:gap-5 md:h-[560px]">
-          <a
-            href={SITE.social.youtube.url}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="tile relative md:col-span-2 md:row-span-2 group"
-          >
-            <Image
-              src={asset("/images/release-cover-tar-jungle.jpg")}
-              alt="YouTube video"
-              fill
-              sizes="(min-width: 768px) 66vw, 100vw"
-              className="object-cover group-hover:scale-105 transition-transform duration-500"
-            />
-            <span className="absolute inset-0 flex items-end justify-start p-8 bg-gradient-to-t from-ink/70 via-ink/20 to-transparent">
-              <span className="uppercase-brand text-base text-white border border-white/60 px-5 py-3 rounded-full backdrop-blur-sm">
-                {tr.common.watch}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-5">
+          {[
+            "/images/release-cover-tar-jungle.jpg",
+            "/images/youtube-thumb-1.jpg",
+            "/images/youtube-thumb-2.png",
+          ].map((src) => (
+            <a
+              key={src}
+              href={SITE.social.youtube.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="tile relative aspect-video group"
+            >
+              <Image
+                src={asset(src)}
+                alt="YouTube video"
+                fill
+                sizes="(min-width: 768px) 33vw, 100vw"
+                className="object-cover group-hover:scale-105 transition-transform duration-500"
+              />
+              <span className="absolute inset-0 flex items-end justify-start p-5 bg-gradient-to-t from-ink/70 via-transparent to-transparent">
+                <span className="uppercase-brand text-xs text-white border border-white/60 px-4 py-2 rounded-full">
+                  {tr.common.watch}
+                </span>
               </span>
-            </span>
-          </a>
-          <a
-            href={SITE.social.youtube.url}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="tile relative group"
-          >
-            <Image
-              src={asset("/images/youtube-thumb-1.jpg")}
-              alt="YouTube video"
-              fill
-              sizes="(min-width: 768px) 33vw, 100vw"
-              className="object-cover group-hover:scale-105 transition-transform duration-500"
-            />
-            <span className="absolute inset-0 flex items-end justify-start p-5 bg-gradient-to-t from-ink/70 via-transparent to-transparent">
-              <span className="uppercase-brand text-xs text-white border border-white/60 px-4 py-2 rounded-full">
-                {tr.common.watch}
-              </span>
-            </span>
-          </a>
-          <a
-            href={SITE.social.youtube.url}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="tile relative group"
-          >
-            <Image
-              src={asset("/images/youtube-thumb-2.png")}
-              alt="YouTube video"
-              fill
-              sizes="(min-width: 768px) 33vw, 100vw"
-              className="object-cover group-hover:scale-105 transition-transform duration-500"
-            />
-            <span className="absolute inset-0 flex items-end justify-start p-5 bg-gradient-to-t from-ink/70 via-transparent to-transparent">
-              <span className="uppercase-brand text-xs text-white border border-white/60 px-4 py-2 rounded-full">
-                {tr.common.watch}
-              </span>
-            </span>
-          </a>
+            </a>
+          ))}
         </div>
       </section>
 

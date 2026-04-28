@@ -4,6 +4,8 @@ import Image from "next/image";
 import { SITE } from "@/lib/site";
 import { upcomingEvents } from "@/lib/events";
 import EventCard from "@/components/EventCard";
+import YouTubeEmbed from "@/components/YouTubeEmbed";
+import { YOUTUBE_VIDEOS } from "@/lib/youtube";
 import { isLocale, t, localizedHref, type Locale } from "@/lib/i18n";
 import { notFound } from "next/navigation";
 
@@ -104,35 +106,22 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
         </div>
       </section>
 
-      {/* YOUTUBE — equal grid */}
+      {/* YOUTUBE — every video its own player tile */}
       <section className="container-site py-16 sm:py-24">
-        <h2 className="uppercase-brand text-display-lg text-white mb-10">{tr.home.youtubeTitle}</h2>
+        <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-6 mb-10">
+          <h2 className="uppercase-brand text-display-lg text-white">{tr.home.youtubeTitle}</h2>
+          <a
+            href={SITE.social.youtube.url}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="btn self-start sm:self-end"
+          >
+            YouTube ↗
+          </a>
+        </div>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-5">
-          {[
-            "/images/release-cover-tar-jungle.jpg",
-            "/images/youtube-thumb-1.jpg",
-            "/images/youtube-thumb-2.png",
-          ].map((src) => (
-            <a
-              key={src}
-              href={SITE.social.youtube.url}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="tile relative aspect-video group"
-            >
-              <Image
-                src={asset(src)}
-                alt="YouTube video"
-                fill
-                sizes="(min-width: 768px) 33vw, 100vw"
-                className="object-cover group-hover:scale-105 transition-transform duration-500"
-              />
-              <span className="absolute inset-0 flex items-end justify-start p-5 bg-gradient-to-t from-ink/70 via-transparent to-transparent">
-                <span className="uppercase-brand text-xs text-white border border-white/60 px-4 py-2 rounded-full">
-                  {tr.common.watch}
-                </span>
-              </span>
-            </a>
+          {YOUTUBE_VIDEOS.map((v) => (
+            <YouTubeEmbed key={v.id} video={v} />
           ))}
         </div>
       </section>

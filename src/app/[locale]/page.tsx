@@ -37,14 +37,11 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
             <p className="uppercase-brand text-display-md text-cream/90 mt-4 max-w-3xl">{tr.home.tagline}</p>
 
             <div className="mt-8 flex flex-wrap gap-3">
-              <a href={SITE.streaming.appleMusic.url} target="_blank" rel="noopener noreferrer" className="btn-solid">
-                Apple Music
-              </a>
-              <a href={SITE.streaming.soundcloud.url} target="_blank" rel="noopener noreferrer" className="btn">
+              <a href={SITE.streaming.soundcloud.url} target="_blank" rel="noopener noreferrer" className="btn-solid">
                 Soundcloud
               </a>
-              <a href={SITE.streaming.youtubeMusic.url} target="_blank" rel="noopener noreferrer" className="btn">
-                YouTube Music
+              <a href={SITE.streaming.youtube.url} target="_blank" rel="noopener noreferrer" className="btn">
+                YouTube
               </a>
             </div>
           </div>

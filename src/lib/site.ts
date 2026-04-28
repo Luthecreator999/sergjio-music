@@ -12,14 +12,12 @@ export const SITE = {
     youtube: { handle: "@sergjio9931", url: "https://www.youtube.com/@sergjio9931" },
   },
   streaming: {
-    appleMusic: { label: "Apple Music", url: "https://music.apple.com/" },
     soundcloud: {
       label: "Soundcloud",
       url: "https://soundcloud.com/user-808920730",
       handle: "user-808920730",
     },
-    youtubeMusic: { label: "YouTube Music", url: "https://music.youtube.com/" },
-    spotify: { label: "Spotify", url: "https://open.spotify.com/" },
+    youtube: { label: "YouTube", url: "https://www.youtube.com/@sergjio9931" },
   },
 } as const;
 

@@ -18,7 +18,7 @@ const RELEASES = [
     feat: { de: "Feat. Sergjio Music", en: "Feat. Sergjio Music" },
     year: "2026",
     cover: "/images/sergjio-saz-portrait.jpg",
-    url: SITE.streaming.youtubeMusic.url,
+    url: SITE.streaming.youtube.url,
   },
 ];
 

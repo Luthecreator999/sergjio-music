@@ -16,18 +16,18 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
 
   return (
     <>
-      {/* HERO — full bleed bento overlay */}
+      {/* HERO — full-bleed portrait on mobile, landscape on desktop */}
       <section className="container-site pt-24 sm:pt-28">
-        <div className="relative tile-quiet aspect-[16/12] sm:aspect-[16/9] lg:aspect-[16/7] flex items-end overflow-hidden">
+        <div className="relative tile-quiet aspect-[3/4] sm:aspect-[16/10] lg:aspect-[16/7] min-h-[80svh] sm:min-h-0 flex items-end overflow-hidden">
           <Image
             src={asset("/images/sergjio-cornet-hero.jpg")}
             alt="Sergjio"
             fill
             priority
             sizes="100vw"
-            className="object-cover object-center opacity-70"
+            className="object-cover object-[center_20%] sm:object-center"
           />
-          <div className="absolute inset-0 bg-gradient-to-b from-ink/40 via-ink/30 to-ink/90" />
+          <div className="absolute inset-0 bg-gradient-to-t from-ink via-ink/40 to-transparent sm:bg-gradient-to-b sm:from-ink/40 sm:via-ink/30 sm:to-ink/90" />
 
           <div className="relative p-6 sm:p-10 lg:p-14 w-full">
             <p className="uppercase-brand text-xs sm:text-sm text-cream/80 mb-3">{tr.home.location}</p>

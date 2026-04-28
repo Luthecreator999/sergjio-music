@@ -43,18 +43,32 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
 
   return (
     <>
-      <section className="container-site pt-28 pb-12">
-        <p className="uppercase-brand text-xs text-cream/60 mb-4">{tr.about.label}</p>
-        <h1 className="uppercase-brand text-display-xl text-white max-w-4xl">{tr.about.title}</h1>
+      {/* Hero — portrait full-bleed mobile */}
+      <section className="container-site pt-24 sm:pt-28">
+        <div className="relative tile-quiet aspect-[3/4] sm:aspect-[16/10] lg:aspect-[16/7] min-h-[80svh] sm:min-h-0 flex items-end overflow-hidden">
+          <Image
+            src={asset("/images/about-portrait.jpg")}
+            alt="Sergjio"
+            fill
+            priority
+            sizes="100vw"
+            className="object-cover object-[center_15%] sm:object-center"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-ink via-ink/40 to-transparent sm:bg-gradient-to-b sm:from-ink/40 sm:via-ink/30 sm:to-ink/90" />
+          <div className="relative p-6 sm:p-10 lg:p-14 w-full">
+            <p className="uppercase-brand text-xs text-cream/80 mb-3">{tr.about.label}</p>
+            <h1 className="uppercase-brand text-display-xl text-white drop-shadow-lg">{tr.about.title}</h1>
+          </div>
+        </div>
       </section>
 
-      {/* Story bento — portrait + text */}
-      <section className="container-site pb-16">
+      {/* Story bento — text-focused (portrait moved to hero) */}
+      <section className="container-site py-16">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-5">
           <div className="lg:col-span-5 tile-quiet relative aspect-[3/4]">
             <Image
-              src={asset("/images/about-portrait.jpg")}
-              alt="Sergjio portrait"
+              src={asset("/images/sergjio-saz-portrait.jpg")}
+              alt="Sergjio with instrument"
               fill
               sizes="(min-width: 1024px) 42vw, 100vw"
               className="object-cover"

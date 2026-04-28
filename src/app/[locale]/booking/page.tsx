@@ -13,20 +13,32 @@ export default async function BookingPage({ params }: { params: Promise<{ locale
 
   return (
     <>
-      <section className="container-site pt-28 pb-10">
-        <p className="uppercase-brand text-xs text-cream/60 mb-4">{tr.booking.label}</p>
-        <h1 className="uppercase-brand text-display-xl text-white">{tr.booking.title}</h1>
-        <p className="uppercase-brand text-display-md text-cream/80 mt-6 max-w-3xl">
-          {tr.booking.sub}
-        </p>
+      {/* Hero — portrait full-bleed mobile */}
+      <section className="container-site pt-24 sm:pt-28">
+        <div className="relative tile-quiet aspect-[3/4] sm:aspect-[16/9] lg:aspect-[16/6] min-h-[75svh] sm:min-h-0 flex items-end overflow-hidden">
+          <Image
+            src={asset("/images/booking-portrait.jpg")}
+            alt="Sergjio Booking"
+            fill
+            priority
+            sizes="100vw"
+            className="object-cover object-[center_15%] sm:object-center"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-ink via-ink/45 to-transparent sm:bg-gradient-to-b sm:from-ink/40 sm:via-ink/30 sm:to-ink/85" />
+          <div className="relative p-6 sm:p-10 lg:p-14 w-full">
+            <p className="uppercase-brand text-xs text-cream/80 mb-3">{tr.booking.label}</p>
+            <h1 className="uppercase-brand text-display-xl text-white drop-shadow-lg">{tr.booking.title}</h1>
+            <p className="uppercase-brand text-display-md text-cream/90 mt-3 max-w-3xl">{tr.booking.sub}</p>
+          </div>
+        </div>
       </section>
 
-      <section className="container-site pb-16">
+      <section className="container-site py-16">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-5">
           <div className="lg:col-span-5 flex flex-col gap-4 sm:gap-5">
             <div className="tile-quiet relative aspect-[3/4]">
               <Image
-                src={asset("/images/booking-portrait.jpg")}
+                src={asset("/images/sergjio-saz-portrait.jpg")}
                 alt="Sergjio booking"
                 fill
                 sizes="(min-width: 1024px) 42vw, 100vw"

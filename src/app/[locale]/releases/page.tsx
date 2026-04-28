@@ -3,6 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { isLocale, t, localizedHref, type Locale } from "@/lib/i18n";
 import { SITE } from "@/lib/site";
+import { asset } from "@/lib/asset";
 
 const RELEASES = [
   {
@@ -29,9 +30,23 @@ export default async function ReleasesPage({ params }: { params: Promise<{ local
 
   return (
     <>
-      <section className="container-site pt-28 pb-10">
-        <p className="uppercase-brand text-xs text-cream/60 mb-4">{tr.releases.label}</p>
-        <h1 className="uppercase-brand text-display-xl text-white">{tr.releases.title}</h1>
+      {/* Hero — portrait full-bleed mobile */}
+      <section className="container-site pt-24 sm:pt-28">
+        <div className="relative tile-quiet aspect-[3/4] sm:aspect-[16/9] lg:aspect-[16/6] min-h-[75svh] sm:min-h-0 flex items-end overflow-hidden">
+          <Image
+            src={asset("/images/sergjio-saz-portrait.jpg")}
+            alt="Releases"
+            fill
+            priority
+            sizes="100vw"
+            className="object-cover object-[center_25%] sm:object-center"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-ink via-ink/45 to-transparent sm:bg-gradient-to-b sm:from-ink/40 sm:via-ink/30 sm:to-ink/85" />
+          <div className="relative p-6 sm:p-10 lg:p-14 w-full">
+            <p className="uppercase-brand text-xs text-cream/80 mb-3">{tr.releases.label}</p>
+            <h1 className="uppercase-brand text-display-xl text-white drop-shadow-lg">{tr.releases.title}</h1>
+          </div>
+        </div>
       </section>
 
       <section className="container-site pb-16">
@@ -40,7 +55,7 @@ export default async function ReleasesPage({ params }: { params: Promise<{ local
             <article key={r.title} className="tile flex flex-col">
               <div className="relative aspect-square">
                 <Image
-                  src={r.cover}
+                  src={asset(r.cover)}
                   alt={r.title}
                   fill
                   sizes="(min-width: 640px) 50vw, 100vw"

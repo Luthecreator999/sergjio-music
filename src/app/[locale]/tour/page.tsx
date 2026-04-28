@@ -15,21 +15,21 @@ export default async function TourPage({ params }: { params: Promise<{ locale: s
 
   return (
     <>
-      {/* Hero tile */}
+      {/* Hero — portrait full-bleed mobile */}
       <section className="container-site pt-24 sm:pt-28">
-        <div className="relative tile-quiet aspect-[16/12] sm:aspect-[16/8] lg:aspect-[16/6] flex items-end overflow-hidden">
+        <div className="relative tile-quiet aspect-[3/4] sm:aspect-[16/9] lg:aspect-[16/6] min-h-[75svh] sm:min-h-0 flex items-end overflow-hidden">
           <Image
             src={asset("/images/tour-hero.jpg")}
             alt=""
             fill
             priority
             sizes="100vw"
-            className="object-cover opacity-50"
+            className="object-cover object-[center_30%] sm:object-center"
           />
-          <div className="absolute inset-0 bg-gradient-to-b from-ink/40 via-ink/30 to-ink/85" />
+          <div className="absolute inset-0 bg-gradient-to-t from-ink via-ink/50 to-transparent sm:bg-gradient-to-b sm:from-ink/40 sm:via-ink/30 sm:to-ink/85" />
           <div className="relative p-6 sm:p-10 lg:p-14 w-full">
             <p className="uppercase-brand text-xs text-cream/80 mb-3">{tr.tour.label}</p>
-            <h1 className="uppercase-brand text-display-xl text-white">{tr.tour.title}</h1>
+            <h1 className="uppercase-brand text-display-xl text-white drop-shadow-lg">{tr.tour.title}</h1>
           </div>
         </div>
       </section>

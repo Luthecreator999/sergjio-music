@@ -38,8 +38,8 @@ export default async function BookingPage({ params }: { params: Promise<{ locale
           <div className="flex flex-col gap-4 sm:gap-5">
             <div className="tile-quiet relative aspect-[3/4]">
               <Image
-                src={asset("/images/sergjio-saz-portrait.jpg")}
-                alt="Sergjio booking"
+                src={asset("/images/dj-live-3.jpg")}
+                alt="Sergjio collab live"
                 fill
                 sizes="(min-width: 1024px) 42vw, 100vw"
                 className="object-cover"

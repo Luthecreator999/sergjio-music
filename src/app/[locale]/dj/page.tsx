@@ -8,12 +8,12 @@ import SiteVideo from "@/components/SiteVideo";
 import { VIDEOS } from "@/lib/media";
 
 const GALLERY = [
-  "/images/dj-live-1.jpg",
   "/images/dj-live-2.jpg",
   "/images/dj-live-3.jpg",
-  "/images/dj-live-4.jpg",
-  "/images/dj-live-5.jpg",
+  "/images/archive-dj-2.jpeg",
   "/images/dj-live-6.jpg",
+  "/images/archive-dj-1.jpeg",
+  "/images/dj-booth-hero.jpg",
 ];
 
 export default async function DJPage({ params }: { params: Promise<{ locale: string }> }) {
@@ -28,7 +28,7 @@ export default async function DJPage({ params }: { params: Promise<{ locale: str
       <section className="container-site pt-24 sm:pt-28">
         <div className="relative tile-quiet aspect-[3/4] sm:aspect-[16/10] lg:aspect-[16/7] min-h-[80svh] sm:min-h-0 flex items-end overflow-hidden">
           <Image
-            src={asset("/images/dj-booth-hero.jpg")}
+            src={asset("/images/dj-live-5.jpg")}
             alt="DJ Sergjio"
             fill
             priority
@@ -53,51 +53,34 @@ export default async function DJPage({ params }: { params: Promise<{ locale: str
         </div>
       </section>
 
-      {/* Soundcloud — equal split */}
+      {/* Soundcloud — live profile feed (always up-to-date with his latest uploads) */}
       <section className="container-site pb-16">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-5">
-          <div className="tile-quiet overflow-hidden">
-            <iframe
-              width="100%"
-              height="500"
-              scrolling="no"
-              frameBorder="no"
-              allow="autoplay"
-              src="https://w.soundcloud.com/player/?url=https%3A//soundcloud.com/sergjio&color=%23cccccc&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true&visual=true"
-              className="block"
-            />
+        <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 mb-6">
+          <div>
+            <p className="uppercase-brand text-xs text-cream/60 mb-2">Soundcloud · Live Feed</p>
+            <h2 className="uppercase-brand text-display-md text-white">
+              {locale === "de" ? "Aktuelle Sets, Mixes & Releases" : "Latest Sets, Mixes & Releases"}
+            </h2>
           </div>
-          <div className="tile p-8 flex flex-col justify-between gap-6">
-            <div>
-              <p className="uppercase-brand text-xs text-cream/60 mb-3">Soundcloud</p>
-              <h3 className="uppercase-brand text-2xl text-white">
-                {locale === "de" ? "Latest Mixes & Tracks" : "Latest mixes & tracks"}
-              </h3>
-              <p className="text-sm text-cream/70 normal-case font-normal leading-relaxed mt-4">
-                {locale === "de"
-                  ? "Alle aktuellen Sets, Mixes und Drops direkt von Sergjio's Soundcloud."
-                  : "All recent sets, mixes and drops straight from Sergjio's Soundcloud."}
-              </p>
-            </div>
-            <div className="flex flex-wrap gap-3">
-              <a
-                href={SITE.streaming.soundcloud.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="btn-solid"
-              >
-                {locale === "de" ? "Soundcloud öffnen" : "Open Soundcloud"}
-              </a>
-              <a
-                href={SITE.social.youtube.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="btn"
-              >
-                YouTube
-              </a>
-            </div>
-          </div>
+          <a
+            href={SITE.streaming.soundcloud.url}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="btn-solid self-start sm:self-end"
+          >
+            {locale === "de" ? "Auf Soundcloud öffnen ↗" : "Open on Soundcloud ↗"}
+          </a>
+        </div>
+        <div className="tile-quiet overflow-hidden">
+          <iframe
+            width="100%"
+            height="650"
+            scrolling="no"
+            frameBorder="no"
+            allow="autoplay"
+            src={`https://w.soundcloud.com/player/?url=https%3A%2F%2Fsoundcloud.com%2F${SITE.streaming.soundcloud.handle}&color=%23cccccc&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true&visual=true`}
+            className="block w-full"
+          />
         </div>
       </section>
 

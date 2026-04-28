@@ -10,7 +10,7 @@ const RELEASES = [
     title: "Tar In The Jungle",
     feat: { de: "Feat. Sergjio Music", en: "Feat. Sergjio Music" },
     year: "2026",
-    cover: "/images/release-cover-tar-jungle.jpg",
+    cover: "/images/instrument-azeri-tar.jpeg",
     url: SITE.streaming.soundcloud.url,
   },
   {
@@ -34,7 +34,7 @@ export default async function ReleasesPage({ params }: { params: Promise<{ local
       <section className="container-site pt-24 sm:pt-28">
         <div className="relative tile-quiet aspect-[3/4] sm:aspect-[16/9] lg:aspect-[16/6] min-h-[75svh] sm:min-h-0 flex items-end overflow-hidden">
           <Image
-            src={asset("/images/sergjio-saz-portrait.jpg")}
+            src={asset("/images/sergjio-cornet-hero.jpg")}
             alt="Releases"
             fill
             priority

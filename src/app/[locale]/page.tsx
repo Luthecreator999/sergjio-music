@@ -22,7 +22,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
       <section className="container-site pt-24 sm:pt-28">
         <div className="relative tile-quiet aspect-[3/4] sm:aspect-[16/10] lg:aspect-[16/7] min-h-[80svh] sm:min-h-0 flex items-end overflow-hidden">
           <Image
-            src={asset("/images/sergjio-cornet-hero.jpg")}
+            src={asset("/images/tour-hero.jpg")}
             alt="Sergjio"
             fill
             priority
@@ -79,8 +79,8 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-5">
           <div className="tile-quiet relative aspect-[4/5] lg:aspect-auto">
             <Image
-              src={asset("/images/sergjio-saz-portrait.jpg")}
-              alt="Sergjio with instrument"
+              src={asset("/images/youtube-thumb-1.jpg")}
+              alt="Sergjio — Saz, Cornet, DJ"
               fill
               sizes="(min-width: 1024px) 50vw, 100vw"
               className="object-cover"

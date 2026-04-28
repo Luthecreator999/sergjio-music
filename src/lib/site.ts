@@ -13,7 +13,11 @@ export const SITE = {
   },
   streaming: {
     appleMusic: { label: "Apple Music", url: "https://music.apple.com/" },
-    soundcloud: { label: "Soundcloud", url: "https://on.soundcloud.com/VnQEg8kg9libxP6BjE" },
+    soundcloud: {
+      label: "Soundcloud",
+      url: "https://soundcloud.com/user-808920730",
+      handle: "user-808920730",
+    },
     youtubeMusic: { label: "YouTube Music", url: "https://music.youtube.com/" },
     spotify: { label: "Spotify", url: "https://open.spotify.com/" },
   },

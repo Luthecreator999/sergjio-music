@@ -117,7 +117,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
             className="tile relative md:col-span-2 md:row-span-2 group"
           >
             <Image
-              src={asset("/images/release-cover-tar-jungle.png")}
+              src={asset("/images/release-cover-tar-jungle.jpg")}
               alt="YouTube video"
               fill
               sizes="(min-width: 768px) 66vw, 100vw"
@@ -136,7 +136,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
             className="tile relative group"
           >
             <Image
-              src={asset("/images/youtube-thumb-1.png")}
+              src={asset("/images/youtube-thumb-1.jpg")}
               alt="YouTube video"
               fill
               sizes="(min-width: 768px) 33vw, 100vw"

@@ -95,6 +95,28 @@ body {
   border-radius: inherit;
 }
 
+/* Lazy-fade-in for all images: starts dim+slightly scaled, fades to full
+ * when the browser finishes decoding. Avoids the jarring pop of native
+ * lazy loading. Respects prefers-reduced-motion. */
+@media (prefers-reduced-motion: no-preference) {
+  img {
+    animation: easyload 600ms cubic-bezier(0.22, 1, 0.36, 1) backwards;
+  }
+}
+
+@keyframes easyload {
+  from {
+    opacity: 0;
+    transform: scale(1.015);
+    filter: blur(8px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+    filter: blur(0);
+  }
+}
+
 html {
   scroll-behavior: smooth;
 }

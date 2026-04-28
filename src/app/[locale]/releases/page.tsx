@@ -9,7 +9,7 @@ const RELEASES = [
     title: "Tar In The Jungle",
     feat: { de: "Feat. Sergjio Music", en: "Feat. Sergjio Music" },
     year: "2026",
-    cover: "/images/release-cover-tar-jungle.png",
+    cover: "/images/release-cover-tar-jungle.jpg",
     url: SITE.streaming.soundcloud.url,
   },
   {

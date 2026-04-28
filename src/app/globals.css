@@ -1,0 +1,100 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --bg: #000000;
+  --fg: #ffffff;
+  --cream: #cccccc;
+  --hairline: rgba(204, 204, 204, 0.2);
+  --hairline-strong: rgba(204, 204, 204, 0.35);
+  --tile: rgba(204, 204, 204, 0.05);
+  --tile-strong: rgba(204, 204, 204, 0.08);
+  --radius-sm: 12px;
+  --radius-md: 18px;
+  --radius-lg: 24px;
+  --radius-xl: 32px;
+}
+
+html,
+body {
+  background: var(--bg);
+  color: var(--cream);
+  font-family: var(--font-display), sans-serif;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+::selection {
+  background: var(--cream);
+  color: var(--bg);
+}
+
+@layer components {
+  .container-site {
+    @apply mx-auto w-full max-w-site px-5 sm:px-8 lg:px-12;
+  }
+
+  .uppercase-brand {
+    @apply uppercase tracking-brand font-extrabold;
+  }
+
+  /* Pill buttons */
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 px-6 py-3 text-xs sm:text-sm
+           uppercase tracking-brand font-extrabold border border-[var(--hairline-strong)]
+           text-cream rounded-full hover:bg-cream hover:text-ink transition-colors duration-200;
+  }
+
+  .btn-solid {
+    @apply inline-flex items-center justify-center gap-2 px-6 py-3 text-xs sm:text-sm
+           uppercase tracking-brand font-extrabold bg-cream text-ink rounded-full
+           hover:bg-white transition-colors duration-200;
+  }
+
+  /* Bento tiles */
+  .tile {
+    @apply rounded-[var(--radius-xl)] bg-[var(--tile)] border border-[var(--hairline)]
+           overflow-hidden transition-all duration-300
+           hover:bg-[var(--tile-strong)] hover:border-[var(--hairline-strong)];
+  }
+
+  .tile-quiet {
+    @apply rounded-[var(--radius-xl)] border border-[var(--hairline)] overflow-hidden
+           transition-colors duration-300 hover:border-[var(--hairline-strong)];
+  }
+
+  /* Legacy aliases */
+  .card {
+    @apply tile;
+  }
+
+  .hairline {
+    @apply tile-quiet;
+  }
+
+  /* Bento grid utilities */
+  .bento-grid {
+    @apply grid gap-3 sm:gap-4 lg:gap-5;
+    grid-template-columns: repeat(6, 1fr);
+  }
+
+  .bento-grid-3 {
+    @apply grid gap-3 sm:gap-4 lg:gap-5;
+    grid-template-columns: repeat(6, 1fr);
+  }
+}
+
+/* Keep media inside tiles clipped to the rounded corners */
+.tile img,
+.tile video,
+.tile iframe,
+.tile-quiet img,
+.tile-quiet video,
+.tile-quiet iframe {
+  border-radius: inherit;
+}
+
+html {
+  scroll-behavior: smooth;
+}

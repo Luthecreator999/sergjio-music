@@ -15,7 +15,7 @@ export default async function BookingPage({ params }: { params: Promise<{ locale
     <>
       {/* Hero — portrait full-bleed mobile */}
       <section className="container-site pt-24 sm:pt-28">
-        <div className="relative tile-quiet aspect-[3/4] sm:aspect-[16/9] lg:aspect-[16/6] min-h-[75svh] sm:min-h-0 flex items-end overflow-hidden">
+        <div className="relative tile-quiet aspect-[4/5] sm:aspect-[16/9] lg:aspect-[16/6] flex items-end overflow-hidden">
           <Image
             src={asset("/images/booking-portrait.jpg")}
             alt="Sergjio Booking"

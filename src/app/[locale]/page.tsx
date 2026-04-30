@@ -20,7 +20,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
     <>
       {/* HERO — full-bleed portrait on mobile, landscape on desktop */}
       <section className="container-site pt-24 sm:pt-28">
-        <div className="relative tile-quiet aspect-[3/4] sm:aspect-[16/10] lg:aspect-[16/7] min-h-[80svh] sm:min-h-0 flex items-end overflow-hidden">
+        <div className="relative tile-quiet aspect-[4/5] sm:aspect-[16/10] lg:aspect-[16/7] flex items-end overflow-hidden">
           <Image
             src={asset("/images/tour-hero.jpg")}
             alt="Sergjio"
@@ -132,7 +132,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
               href={s.url}
               target="_blank"
               rel="noopener noreferrer"
-              className="tile p-8 flex flex-col justify-between min-h-[200px]"
+              className="tile p-6 sm:p-8 flex flex-col justify-between min-h-[180px]"
             >
               <p className="uppercase-brand text-[11px] text-cream/60">{tr.common.follow}</p>
               <div>

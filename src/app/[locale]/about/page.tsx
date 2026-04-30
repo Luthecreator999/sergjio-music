@@ -45,7 +45,7 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
     <>
       {/* Hero — portrait full-bleed mobile */}
       <section className="container-site pt-24 sm:pt-28">
-        <div className="relative tile-quiet aspect-[3/4] sm:aspect-[16/10] lg:aspect-[16/7] min-h-[80svh] sm:min-h-0 flex items-end overflow-hidden">
+        <div className="relative tile-quiet aspect-[4/5] sm:aspect-[16/10] lg:aspect-[16/7] flex items-end overflow-hidden">
           <Image
             src={asset("/images/archive-live-1.jpg")}
             alt="Sergjio playing Soprano Cornet"
@@ -90,7 +90,7 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
       <section className="container-site py-16">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-5">
           {tr.about.features.map((c) => (
-            <div key={c.h} className="tile p-8">
+            <div key={c.h} className="tile p-6 sm:p-8">
               <h3 className="uppercase-brand text-base text-white">{c.h}</h3>
               <p className="text-sm text-cream/70 normal-case font-normal leading-relaxed mt-3">{c.p}</p>
             </div>
@@ -113,7 +113,7 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
                   className="object-cover"
                 />
               </div>
-              <div className="p-6 flex-1">
+              <div className="p-6 sm:p-8 flex-1">
                 <h3 className="uppercase-brand text-lg text-white">{i.key}</h3>
                 <p className="text-sm text-cream/70 normal-case font-normal leading-relaxed mt-2">
                   {INSTRUMENT_DESCRIPTIONS[i.key][locale]}
@@ -137,15 +137,15 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
       {/* Stat tiles */}
       <section className="container-site py-12">
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-5">
-          <div className="tile p-8">
+          <div className="tile p-6 sm:p-8">
             <p className="uppercase-brand text-xs text-cream/60">{tr.common.available_for}</p>
             <p className="uppercase-brand text-base text-white mt-3">{tr.common.festivalsClubsPrivate}</p>
           </div>
-          <div className="tile p-8">
+          <div className="tile p-6 sm:p-8">
             <p className="uppercase-brand text-xs text-cream/60">{tr.common.based_in}</p>
             <p className="uppercase-brand text-base text-white mt-3">{tr.common.switzerland}</p>
           </div>
-          <div className="tile p-8">
+          <div className="tile p-6 sm:p-8">
             <p className="uppercase-brand text-xs text-cream/60">{tr.common.travels}</p>
             <p className="uppercase-brand text-base text-white mt-3">{tr.common.international}</p>
           </div>

@@ -26,7 +26,7 @@ export default async function DJPage({ params }: { params: Promise<{ locale: str
     <>
       {/* Hero — portrait full-bleed mobile */}
       <section className="container-site pt-24 sm:pt-28">
-        <div className="relative tile-quiet aspect-[3/4] sm:aspect-[16/10] lg:aspect-[16/7] min-h-[80svh] sm:min-h-0 flex items-end overflow-hidden">
+        <div className="relative tile-quiet aspect-[4/5] sm:aspect-[16/10] lg:aspect-[16/7] flex items-end overflow-hidden">
           <Image
             src={asset("/images/dj-live-5.jpg")}
             alt="DJ Sergjio"
@@ -88,7 +88,7 @@ export default async function DJPage({ params }: { params: Promise<{ locale: str
       <section className="container-site py-12">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5">
           {tr.dj.features.map((f) => (
-            <div key={f.h} className="tile p-8">
+            <div key={f.h} className="tile p-6 sm:p-8">
               <h3 className="uppercase-brand text-base text-white">{f.h}</h3>
               <p className="text-sm text-cream/70 normal-case font-normal leading-relaxed mt-3">{f.p}</p>
             </div>

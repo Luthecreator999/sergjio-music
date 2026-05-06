@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { SITE } from "@/lib/site";
+import SocialIcon, { type SocialNetwork } from "@/components/SocialIcon";
 import { NAV_KEYS, t, type Locale, localizedHref } from "@/lib/i18n";
 
 export default function Footer({ locale }: { locale: Locale }) {
@@ -38,18 +39,21 @@ export default function Footer({ locale }: { locale: Locale }) {
         <div>
           <h4 className="uppercase-brand text-xs text-white mb-4">{tr.footer.followOn}</h4>
           <ul className="space-y-3 text-xs">
-            {Object.values(SITE.social).map((s) => (
-              <li key={s.url}>
-                <a
-                  href={s.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="uppercase-brand text-cream/80 hover:text-white"
-                >
-                  {s.handle}
-                </a>
-              </li>
-            ))}
+            {(Object.entries(SITE.social) as [SocialNetwork, (typeof SITE.social)[SocialNetwork]][]).map(
+              ([key, s]) => (
+                <li key={s.url}>
+                  <a
+                    href={s.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="uppercase-brand text-cream/80 hover:text-white inline-flex items-center gap-2"
+                  >
+                    <SocialIcon network={key} className="w-4 h-4" />
+                    <span>{s.handle}</span>
+                  </a>
+                </li>
+              ),
+            )}
           </ul>
         </div>
       </div>

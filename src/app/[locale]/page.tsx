@@ -5,6 +5,7 @@ import { SITE } from "@/lib/site";
 import { upcomingEvents } from "@/lib/events";
 import EventCard from "@/components/EventCard";
 import YouTubeEmbed from "@/components/YouTubeEmbed";
+import SocialIcon, { type SocialNetwork } from "@/components/SocialIcon";
 import { YOUTUBE_VIDEOS } from "@/lib/youtube";
 import { isLocale, t, localizedHref, type Locale } from "@/lib/i18n";
 import { notFound } from "next/navigation";
@@ -126,21 +127,26 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
       {/* SOCIAL TILES */}
       <section className="container-site py-16 sm:py-24">
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-5">
-          {Object.values(SITE.social).map((s) => (
-            <a
-              key={s.url}
-              href={s.url}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="tile p-6 sm:p-8 flex flex-col justify-between min-h-[180px]"
-            >
-              <p className="uppercase-brand text-[11px] text-cream/60">{tr.common.follow}</p>
-              <div>
-                <p className="uppercase-brand text-2xl text-white">{s.handle}</p>
-                <p className="uppercase-brand text-[11px] text-cream/60 mt-2">↗</p>
-              </div>
-            </a>
-          ))}
+          {(Object.entries(SITE.social) as [SocialNetwork, (typeof SITE.social)[SocialNetwork]][]).map(
+            ([key, s]) => (
+              <a
+                key={s.url}
+                href={s.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="tile group p-6 sm:p-8 flex flex-col justify-between gap-8 min-h-[200px] sm:min-h-[220px]"
+              >
+                <div className="flex items-center justify-between">
+                  <SocialIcon
+                    network={key}
+                    className="w-9 h-9 sm:w-10 sm:h-10 text-white group-hover:scale-110 transition-transform duration-300"
+                  />
+                  <span className="uppercase-brand text-[11px] text-cream/60">{tr.common.follow} ↗</span>
+                </div>
+                <p className="uppercase-brand text-xl sm:text-2xl text-white break-all">{s.handle}</p>
+              </a>
+            ),
+          )}
         </div>
       </section>
 

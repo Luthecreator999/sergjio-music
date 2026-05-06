@@ -32,8 +32,6 @@ jobs:
       - run: pnpm install --frozen-lockfile
 
       - name: Build static export
-        env:
-          GH_PAGES: "true"
         run: pnpm build
 
       - uses: actions/configure-pages@v5

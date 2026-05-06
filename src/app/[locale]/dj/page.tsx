@@ -5,6 +5,7 @@ import { notFound } from "next/navigation";
 import { isLocale, t, localizedHref, type Locale } from "@/lib/i18n";
 import { SITE } from "@/lib/site";
 import SiteVideo from "@/components/SiteVideo";
+import SoundcloudEmbed from "@/components/SoundcloudEmbed";
 import { VIDEOS } from "@/lib/media";
 
 const GALLERY = [
@@ -71,17 +72,12 @@ export default async function DJPage({ params }: { params: Promise<{ locale: str
             {locale === "de" ? "Auf Soundcloud öffnen ↗" : "Open on Soundcloud ↗"}
           </a>
         </div>
-        <div className="tile-quiet overflow-hidden">
-          <iframe
-            width="100%"
-            height="650"
-            scrolling="no"
-            frameBorder="no"
-            allow="autoplay"
-            src={`https://w.soundcloud.com/player/?url=https%3A%2F%2Fsoundcloud.com%2F${SITE.streaming.soundcloud.handle}&color=%23cccccc&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true&visual=true`}
-            className="block w-full"
-          />
-        </div>
+        <SoundcloudEmbed
+          handle={SITE.streaming.soundcloud.handle}
+          posterSrc={asset("/images/dj-live-4.jpg")}
+          posterAlt="Sergjio DJ Set"
+          ctaLabel={locale === "de" ? "Soundcloud-Player abspielen" : "Play Soundcloud player"}
+        />
       </section>
 
       {/* Features tiles */}

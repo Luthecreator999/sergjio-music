@@ -27,7 +27,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
             fill
             priority
             sizes="100vw"
-            className="object-cover object-center"
+            className="object-cover object-[70%_35%]"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-ink via-ink/40 to-transparent sm:bg-gradient-to-b sm:from-ink/40 sm:via-ink/30 sm:to-ink/90" />
 
@@ -80,7 +80,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
               alt="Sergjio — Saz, Cornet, DJ"
               fill
               sizes="(min-width: 1024px) 50vw, 100vw"
-              className="object-cover"
+              className="object-cover object-[center_30%]"
             />
           </div>
           <div className="tile p-8 sm:p-12 flex flex-col justify-center">

@@ -39,7 +39,7 @@ export default async function ReleasesPage({ params }: { params: Promise<{ local
             fill
             priority
             sizes="100vw"
-            className="object-cover object-center"
+            className="object-cover object-[55%_30%]"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-ink via-ink/45 to-transparent sm:bg-gradient-to-b sm:from-ink/40 sm:via-ink/30 sm:to-ink/85" />
           <div className="relative p-6 sm:p-10 lg:p-14 w-full">

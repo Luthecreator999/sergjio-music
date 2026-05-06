@@ -33,7 +33,7 @@ export default async function DJPage({ params }: { params: Promise<{ locale: str
             fill
             priority
             sizes="100vw"
-            className="object-cover object-center"
+            className="object-cover object-[center_30%]"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-ink via-ink/40 to-transparent sm:bg-gradient-to-b sm:from-ink/40 sm:via-ink/30 sm:to-ink/85" />
           <div className="relative p-6 sm:p-10 lg:p-14 w-full">
@@ -112,7 +112,7 @@ export default async function DJPage({ params }: { params: Promise<{ locale: str
                 alt="DJ Sergjio live"
                 fill
                 sizes="(min-width: 1024px) 33vw, (min-width: 768px) 33vw, 50vw"
-                className="object-cover hover:scale-105 transition-transform duration-500"
+                className="object-cover object-[center_25%] hover:scale-105 transition-transform duration-500"
               />
             </div>
           ))}

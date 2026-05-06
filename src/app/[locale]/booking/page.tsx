@@ -22,7 +22,7 @@ export default async function BookingPage({ params }: { params: Promise<{ locale
             fill
             priority
             sizes="100vw"
-            className="object-cover object-center"
+            className="object-cover object-[center_35%]"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-ink via-ink/45 to-transparent sm:bg-gradient-to-b sm:from-ink/40 sm:via-ink/30 sm:to-ink/85" />
           <div className="relative p-6 sm:p-10 lg:p-14 w-full">
@@ -42,7 +42,7 @@ export default async function BookingPage({ params }: { params: Promise<{ locale
                 alt="Sergjio collab live"
                 fill
                 sizes="(min-width: 1024px) 42vw, 100vw"
-                className="object-cover"
+                className="object-cover object-[center_25%]"
               />
             </div>
 

@@ -21,10 +21,18 @@ export default async function TourPage({ params }: { params: Promise<{ locale: s
   const tr = t(locale);
   const upcoming = upcomingEvents();
   const past = pastEvents();
+  // Between tours there is nothing upcoming — show the played shows instead of "0+".
+  const stats = tr.tour.stats.map((s) =>
+    !s.v.includes("{count}")
+      ? s
+      : upcoming.length > 0
+        ? { v: s.v.replace("{count}", String(upcoming.length)), l: s.l }
+        : { v: String(past.length), l: tr.tour.pastTitle },
+  );
 
   return (
     <>
-      <JsonLd data={eventsSchema(upcoming, locale)} />
+      {upcoming.length > 0 && <JsonLd data={eventsSchema(upcoming, locale)} />}
       <PageHero
         image="/images/tour-hero.jpg"
         imageAlt="Sergjio performing live on stage"
@@ -37,11 +45,9 @@ export default async function TourPage({ params }: { params: Promise<{ locale: s
       {/* Stats bento */}
       <section className="container-site py-12">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-5">
-          {tr.tour.stats.map((s) => (
+          {stats.map((s) => (
             <div key={s.l} className="tile p-6 sm:p-8 text-center">
-              <p className="uppercase-brand text-display-md text-white">
-                {s.v.replace("{count}", String(upcoming.length))}
-              </p>
+              <p className="uppercase-brand text-display-md text-white">{s.v}</p>
               <p className="uppercase-brand text-[11px] text-cream/60 mt-2">{s.l}</p>
             </div>
           ))}

@@ -45,102 +45,106 @@ export default function Header({ locale }: { locale: Locale }) {
   const homeLabel = "Home";
 
   return (
-    <header
-      className={`sticky top-0 z-50 transition-colors duration-300 ${
-        scrolled ? "bg-ink/90 backdrop-blur-md" : "bg-transparent"
-      }`}
-    >
-      <div className="container-site flex items-center justify-between h-16 sm:h-20">
-        <Link
-          href={`/${locale}`}
-          className="flex items-center gap-2 group"
-          onClick={() => setOpen(false)}
-        >
-          <Image
-            src={"/images/logo.avif"}
-            alt="Sergjio Music"
-            width={36}
-            height={36}
-            priority
-            className="h-8 w-8 sm:h-9 sm:w-9 object-contain"
-          />
-          <span className="uppercase-brand text-sm sm:text-base text-white">
-            Sergjio Music
-          </span>
-        </Link>
-
-        {/* Desktop nav */}
-        <nav className="hidden md:flex items-center gap-4 lg:gap-8">
+    <>
+      <header
+        className={`sticky top-0 z-50 transition-colors duration-300 ${
+          scrolled ? "bg-ink/90 backdrop-blur-md" : "bg-transparent"
+        }`}
+      >
+        <div className="container-site flex items-center justify-between h-16 sm:h-20">
           <Link
             href={`/${locale}`}
-            className="uppercase-brand text-xs lg:text-sm text-cream hover:text-white transition-colors"
+            className="flex items-center gap-2 group"
+            onClick={() => setOpen(false)}
           >
-            {homeLabel}
+            <Image
+              src={"/images/logo.avif"}
+              alt="Sergjio Music"
+              width={36}
+              height={36}
+              priority
+              className="h-8 w-8 sm:h-9 sm:w-9 object-contain"
+            />
+            <span className="uppercase-brand text-sm sm:text-base text-white">
+              Sergjio Music
+            </span>
           </Link>
-          {NAV_KEYS.map((item) => {
-            const isBooking = item.href === "/booking";
-            return (
-              <Link
-                key={item.href}
-                href={localizedHref(locale, item.href)}
-                className={`uppercase-brand text-xs lg:text-sm transition-colors ${
-                  isBooking ? "text-white hover:text-cream" : "text-cream hover:text-white"
-                }`}
-              >
-                {tr.nav[item.key]}
-              </Link>
-            );
-          })}
 
-          <div className="flex items-center gap-1 ml-2 border-l border-[var(--hairline)] pl-4">
-            {locales.map((l) => (
-              <Link
-                key={l}
-                href={switchTo(l)}
-                aria-label={l === "de" ? "Deutsch" : "English"}
-                aria-current={l === locale ? "true" : undefined}
-                className={`uppercase-brand text-xs px-2 py-1 transition-colors ${
-                  l === locale ? "text-white" : "text-cream/60 hover:text-white"
-                }`}
-              >
-                {l.toUpperCase()}
-              </Link>
-            ))}
-          </div>
-        </nav>
+          {/* Desktop nav */}
+          <nav className="hidden md:flex items-center gap-4 lg:gap-8">
+            <Link
+              href={`/${locale}`}
+              className="uppercase-brand text-xs lg:text-sm text-cream hover:text-white transition-colors"
+            >
+              {homeLabel}
+            </Link>
+            {NAV_KEYS.map((item) => {
+              const isBooking = item.href === "/booking";
+              return (
+                <Link
+                  key={item.href}
+                  href={localizedHref(locale, item.href)}
+                  className={`uppercase-brand text-xs lg:text-sm transition-colors ${
+                    isBooking ? "text-white hover:text-cream" : "text-cream hover:text-white"
+                  }`}
+                >
+                  {tr.nav[item.key]}
+                </Link>
+              );
+            })}
 
-        {/* Mobile burger */}
-        <button
-          aria-label={open ? tr.common.closeMenu : tr.common.menu}
-          aria-expanded={open}
-          aria-controls="mobile-menu"
-          onClick={() => setOpen(!open)}
-          className="md:hidden flex flex-col gap-1.5 p-2 -mr-2"
-        >
-          <span
-            className={`block h-[2px] w-6 bg-cream transition-transform ${
-              open ? "translate-y-[7px] rotate-45" : ""
-            }`}
-          />
-          <span
-            className={`block h-[2px] w-6 bg-cream transition-opacity ${
-              open ? "opacity-0" : "opacity-100"
-            }`}
-          />
-          <span
-            className={`block h-[2px] w-6 bg-cream transition-transform ${
-              open ? "-translate-y-[7px] -rotate-45" : ""
-            }`}
-          />
-        </button>
-      </div>
+            <div className="flex items-center gap-1 ml-2 border-l border-[var(--hairline)] pl-4">
+              {locales.map((l) => (
+                <Link
+                  key={l}
+                  href={switchTo(l)}
+                  aria-label={l === "de" ? "Deutsch" : "English"}
+                  aria-current={l === locale ? "true" : undefined}
+                  className={`uppercase-brand text-xs px-2 py-1 transition-colors ${
+                    l === locale ? "text-white" : "text-cream/60 hover:text-white"
+                  }`}
+                >
+                  {l.toUpperCase()}
+                </Link>
+              ))}
+            </div>
+          </nav>
 
-      {/* Mobile drawer */}
+          {/* Mobile burger */}
+          <button
+            aria-label={open ? tr.common.closeMenu : tr.common.menu}
+            aria-expanded={open}
+            aria-controls="mobile-menu"
+            onClick={() => setOpen(!open)}
+            className="md:hidden flex flex-col gap-1.5 p-2 -mr-2"
+          >
+            <span
+              className={`block h-[2px] w-6 bg-cream transition-transform ${
+                open ? "translate-y-[7px] rotate-45" : ""
+              }`}
+            />
+            <span
+              className={`block h-[2px] w-6 bg-cream transition-opacity ${
+                open ? "opacity-0" : "opacity-100"
+              }`}
+            />
+            <span
+              className={`block h-[2px] w-6 bg-cream transition-transform ${
+                open ? "-translate-y-[7px] -rotate-45" : ""
+              }`}
+            />
+          </button>
+        </div>
+      </header>
+
+      {/* Mobile drawer — a sibling of the header, not a child: the header's
+          backdrop-blur makes it the containing block for fixed descendants,
+          which collapsed the drawer to zero height once the page was scrolled. */}
       <div
         id="mobile-menu"
         aria-hidden={!open}
         inert={!open}
-        className={`md:hidden fixed inset-x-0 top-16 bottom-0 bg-ink transition-transform duration-300 overflow-y-auto ${
+        className={`md:hidden fixed inset-x-0 top-16 bottom-0 z-40 bg-ink transition-transform duration-300 overflow-y-auto ${
           open ? "translate-x-0" : "translate-x-full"
         }`}
       >
@@ -186,6 +190,6 @@ export default function Header({ locale }: { locale: Locale }) {
           </div>
         </nav>
       </div>
-    </header>
+    </>
   );
 }

@@ -23,11 +23,12 @@ export type Event = {
 // Local calendar date as YYYY-MM-DD. String comparison against event dates
 // works because every event date uses the same zero-padded ISO format.
 // `sv-SE` yields an ISO-8601 date; the CH timezone keeps the day boundary local.
-// NOTE: evaluated once per render of the module — on statically-generated
-// pages that means build time, so any page using upcoming/pastEvents must set
-// `export const revalidate` (home, tour and the EPK pages do, at 24h) to keep
-// the split fresh.
-const TODAY = new Date().toLocaleDateString("sv-SE", { timeZone: "Europe/Zurich" });
+// Computed per call rather than at module load: a warm server instance keeps
+// the module in memory, so a constant would still hold yesterday's date when a
+// page regenerates. Static pages only call this when they are (re)generated,
+// so any page using upcoming/pastEvents must set `export const revalidate`
+// (home, tour and the EPK pages do, at 24h) to keep the split fresh.
+const today = () => new Date().toLocaleDateString("sv-SE", { timeZone: "Europe/Zurich" });
 
 export const EVENTS: Event[] = [
   {
@@ -280,13 +281,17 @@ export const EVENTS: Event[] = [
   },
 ];
 
-export const upcomingEvents = () =>
-  EVENTS.filter((e) => (e.endDate ?? e.date) >= TODAY).sort((a, b) => a.date.localeCompare(b.date));
+export const upcomingEvents = () => {
+  const now = today();
+  return EVENTS.filter((e) => (e.endDate ?? e.date) >= now).sort((a, b) => a.date.localeCompare(b.date));
+};
 
-export const pastEvents = () =>
-  EVENTS.filter((e) => (e.endDate ?? e.date) < TODAY).sort((a, b) =>
+export const pastEvents = () => {
+  const now = today();
+  return EVENTS.filter((e) => (e.endDate ?? e.date) < now).sort((a, b) =>
     (b.endDate ?? b.date).localeCompare(a.endDate ?? a.date),
   );
+};
 
 /** Played shows of one booking profile, newest first. */
 export const pastEventsOf = (kind: EventKind) => pastEvents().filter((e) => e.kinds.includes(kind));

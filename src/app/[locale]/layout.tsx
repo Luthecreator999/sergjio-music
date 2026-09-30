@@ -23,7 +23,7 @@ export default async function LocaleLayout({
   const tr = t(locale as Locale);
 
   return (
-    <html lang={locale} className={display.variable}>
+    <html lang={locale} className={display.variable} data-scroll-behavior="smooth">
       <body className="bg-ink text-cream antialiased">
         <JsonLd data={musicGroupSchema(locale as Locale)} />
         <a href="#main" className="skip-link">

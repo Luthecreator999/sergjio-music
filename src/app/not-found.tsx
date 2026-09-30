@@ -8,7 +8,7 @@ import { defaultLocale } from "@/lib/i18n";
  */
 export default function NotFound() {
   return (
-    <html lang={defaultLocale} className={display.variable}>
+    <html lang={defaultLocale} className={display.variable} data-scroll-behavior="smooth">
       <body className="bg-ink text-cream antialiased">
         <main className="min-h-screen flex flex-col items-center justify-center gap-6 text-center px-6">
           <h1 className="uppercase-brand text-display-lg text-white">404</h1>

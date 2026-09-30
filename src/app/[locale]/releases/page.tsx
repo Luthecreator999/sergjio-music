@@ -2,8 +2,14 @@ import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { isLocale, t, localizedHref, type Locale } from "@/lib/i18n";
+import { pageMetadata } from "@/lib/seo";
 import { SITE } from "@/lib/site";
-import { asset } from "@/lib/asset";
+import PageHero from "@/components/PageHero";
+
+export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }) {
+  const { locale } = await params;
+  return isLocale(locale) ? pageMetadata(locale, "releases") : {};
+}
 
 const RELEASES = [
   {
@@ -14,7 +20,7 @@ const RELEASES = [
     url: SITE.streaming.soundcloud.url,
   },
   {
-    title: "Microtonal Drum & Bass",
+    title: "Microtonal House",
     feat: { de: "Feat. Sergjio Music", en: "Feat. Sergjio Music" },
     year: "2026",
     cover: "/images/sergjio-saz-portrait.jpg",
@@ -30,24 +36,14 @@ export default async function ReleasesPage({ params }: { params: Promise<{ local
 
   return (
     <>
-      {/* Hero — portrait full-bleed mobile */}
-      <section className="container-site pt-24 sm:pt-28">
-        <div className="relative tile-quiet aspect-[4/5] sm:aspect-[16/9] lg:aspect-[16/6] flex items-end overflow-hidden">
-          <Image
-            src={asset("/images/sergjio-cornet-hero.jpg")}
-            alt="Releases"
-            fill
-            priority
-            sizes="100vw"
-            className="object-cover object-[55%_30%]"
-          />
-          <div className="absolute inset-0 bg-gradient-to-t from-ink via-ink/45 to-transparent sm:bg-gradient-to-b sm:from-ink/40 sm:via-ink/30 sm:to-ink/85" />
-          <div className="relative p-6 sm:p-10 lg:p-14 w-full">
-            <p className="uppercase-brand text-xs text-cream/80 mb-3">{tr.releases.label}</p>
-            <h1 className="uppercase-brand text-display-xl text-white drop-shadow-lg">{tr.releases.title}</h1>
-          </div>
-        </div>
-      </section>
+      <PageHero
+        image="/images/sergjio-cornet-hero.jpg"
+        imageAlt="Sergjio holding the Soprano Cornet"
+        label={tr.releases.label}
+        title={tr.releases.title}
+        objectPosition="55% 30%"
+        size="wide"
+      />
 
       <section className="container-site pb-16">
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-5">
@@ -55,7 +51,7 @@ export default async function ReleasesPage({ params }: { params: Promise<{ local
             <article key={r.title} className="tile flex flex-col">
               <div className="relative aspect-square">
                 <Image
-                  src={asset(r.cover)}
+                  src={r.cover}
                   alt={r.title}
                   fill
                   sizes="(min-width: 640px) 50vw, 100vw"

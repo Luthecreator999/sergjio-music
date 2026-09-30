@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 import { ytThumbnail, ytEmbed, type YoutubeVideo } from "@/lib/youtube";
 
 /**
@@ -20,11 +21,13 @@ export default function YouTubeEmbed({ video }: { video: YoutubeVideo }) {
           className="absolute inset-0 w-full h-full p-0 m-0 border-0 bg-transparent cursor-pointer"
           aria-label={`Play: ${video.title}`}
         >
-          <img
+          <Image
             src={ytThumbnail(video.id)}
             alt={video.title}
-            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+            fill
             loading="lazy"
+            sizes="(min-width: 768px) 33vw, 100vw"
+            className="object-cover group-hover:scale-105 transition-transform duration-500"
           />
           <span className="absolute inset-0 flex items-center justify-center bg-ink/30 group-hover:bg-ink/15 transition-colors">
             <span className="flex items-center justify-center w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-white/95 group-hover:bg-white transition-colors">
@@ -43,7 +46,7 @@ export default function YouTubeEmbed({ video }: { video: YoutubeVideo }) {
         <iframe
           src={ytEmbed(video.id)}
           title={video.title}
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allow="autoplay; encrypted-media; picture-in-picture"
           allowFullScreen
           className="absolute inset-0 w-full h-full border-0"
         />

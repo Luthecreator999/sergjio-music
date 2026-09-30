@@ -1,8 +1,15 @@
 import { SITE } from "./site";
 import { DICT, type Locale } from "./i18n";
 
-export function whatsappLink(locale: Locale, eventTitle: string, dateLabel: string, venue: string) {
-  const text = DICT[locale].whatsapp.eventInquiry(eventTitle, dateLabel, venue);
+export function whatsappLink(
+  locale: Locale,
+  eventTitle: string,
+  dateLabel: string,
+  venue: string,
+  past = false,
+) {
+  const wa = DICT[locale].whatsapp;
+  const text = (past ? wa.eventPastInquiry : wa.eventInquiry)(eventTitle, dateLabel, venue);
   return `https://wa.me/${SITE.phoneIntl}?text=${encodeURIComponent(text)}`;
 }
 

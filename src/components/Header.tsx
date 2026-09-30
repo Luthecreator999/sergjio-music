@@ -5,7 +5,6 @@ import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { NAV_KEYS, t, locales, type Locale, localizedHref } from "@/lib/i18n";
-import { asset } from "@/lib/asset";
 
 export default function Header({ locale }: { locale: Locale }) {
   const [open, setOpen] = useState(false);
@@ -27,13 +26,23 @@ export default function Header({ locale }: { locale: Locale }) {
     };
   }, [open]);
 
+  // Close the mobile drawer on Escape.
+  useEffect(() => {
+    if (!open) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setOpen(false);
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [open]);
+
   // Build path for the other locale, preserving the route after /xx
   const switchTo = (target: Locale) => {
     const rest = pathname.replace(/^\/(de|en)/, "") || "";
     return `/${target}${rest}`;
   };
 
-  const homeLabel = locale === "de" ? "Home" : "Home";
+  const homeLabel = "Home";
 
   return (
     <header
@@ -48,7 +57,7 @@ export default function Header({ locale }: { locale: Locale }) {
           onClick={() => setOpen(false)}
         >
           <Image
-            src={asset("/images/logo.avif")}
+            src={"/images/logo.avif"}
             alt="Sergjio Music"
             width={36}
             height={36}
@@ -61,7 +70,7 @@ export default function Header({ locale }: { locale: Locale }) {
         </Link>
 
         {/* Desktop nav */}
-        <nav className="hidden md:flex items-center gap-6 lg:gap-8">
+        <nav className="hidden md:flex items-center gap-4 lg:gap-8">
           <Link
             href={`/${locale}`}
             className="uppercase-brand text-xs lg:text-sm text-cream hover:text-white transition-colors"
@@ -89,6 +98,7 @@ export default function Header({ locale }: { locale: Locale }) {
                 key={l}
                 href={switchTo(l)}
                 aria-label={l === "de" ? "Deutsch" : "English"}
+                aria-current={l === locale ? "true" : undefined}
                 className={`uppercase-brand text-xs px-2 py-1 transition-colors ${
                   l === locale ? "text-white" : "text-cream/60 hover:text-white"
                 }`}
@@ -101,7 +111,9 @@ export default function Header({ locale }: { locale: Locale }) {
 
         {/* Mobile burger */}
         <button
-          aria-label="Menu"
+          aria-label={open ? tr.common.closeMenu : tr.common.menu}
+          aria-expanded={open}
+          aria-controls="mobile-menu"
           onClick={() => setOpen(!open)}
           className="md:hidden flex flex-col gap-1.5 p-2 -mr-2"
         >
@@ -125,6 +137,9 @@ export default function Header({ locale }: { locale: Locale }) {
 
       {/* Mobile drawer */}
       <div
+        id="mobile-menu"
+        aria-hidden={!open}
+        inert={!open}
         className={`md:hidden fixed inset-x-0 top-16 bottom-0 bg-ink transition-transform duration-300 overflow-y-auto ${
           open ? "translate-x-0" : "translate-x-full"
         }`}
@@ -159,6 +174,8 @@ export default function Header({ locale }: { locale: Locale }) {
                 key={l}
                 href={switchTo(l)}
                 onClick={() => setOpen(false)}
+                aria-label={l === "de" ? "Deutsch" : "English"}
+                aria-current={l === locale ? "true" : undefined}
                 className={`uppercase-brand text-base px-4 py-2 border ${
                   l === locale ? "border-white text-white" : "border-[var(--hairline)] text-cream/60"
                 }`}

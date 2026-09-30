@@ -89,27 +89,6 @@ export default function BookingForm({ locale }: { locale: Locale }) {
           {tr.booking.sendWa}
         </a>
       </div>
-
-      <style jsx>{`
-        .input {
-          background: rgba(204, 204, 204, 0.05);
-          border: 1px solid var(--hairline-strong);
-          color: var(--cream);
-          padding: 14px 18px;
-          width: 100%;
-          font-family: inherit;
-          font-size: 14px;
-          font-weight: 400;
-          outline: none;
-          border-radius: 12px;
-          transition: border-color 0.2s, background 0.2s;
-        }
-        .input:focus {
-          border-color: #fff;
-          color: #fff;
-          background: rgba(204, 204, 204, 0.08);
-        }
-      `}</style>
     </form>
   );
 }

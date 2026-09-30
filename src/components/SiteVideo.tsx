@@ -1,6 +1,3 @@
-import Image from "next/image";
-import { asset } from "@/lib/asset";
-
 type Props = {
   src: string;
   width: number;
@@ -26,8 +23,8 @@ export default function SiteVideo({ src, width, height, poster, className = "" }
       style={{ aspectRatio: aspect }}
     >
       <video
-        src={asset(src)}
-        poster={poster ? asset(poster) : undefined}
+        src={src}
+        poster={poster}
         controls
         playsInline
         preload="metadata"
@@ -38,9 +35,3 @@ export default function SiteVideo({ src, width, height, poster, className = "" }
     </div>
   );
 }
-
-/**
- * Image asset hint — for future image uploads we want consistent handling.
- * (Re-exported for convenience so video pages can co-locate poster fallbacks.)
- */
-export { Image };

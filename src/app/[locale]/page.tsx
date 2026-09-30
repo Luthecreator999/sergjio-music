@@ -1,14 +1,22 @@
-import { asset } from "@/lib/asset";
 import Link from "next/link";
 import Image from "next/image";
-import { SITE } from "@/lib/site";
+import { SITE, socialEntries } from "@/lib/site";
 import { upcomingEvents } from "@/lib/events";
 import EventCard from "@/components/EventCard";
 import YouTubeEmbed from "@/components/YouTubeEmbed";
-import SocialIcon, { type SocialNetwork } from "@/components/SocialIcon";
+import SocialIcon from "@/components/SocialIcon";
 import { YOUTUBE_VIDEOS } from "@/lib/youtube";
 import { isLocale, t, localizedHref, type Locale } from "@/lib/i18n";
+import { pageMetadata } from "@/lib/seo";
 import { notFound } from "next/navigation";
+
+// Regenerate daily so the "upcoming shows" preview stays current.
+export const revalidate = 86400;
+
+export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }) {
+  const { locale } = await params;
+  return isLocale(locale) ? pageMetadata(locale, "home") : {};
+}
 
 export default async function HomePage({ params }: { params: Promise<{ locale: string }> }) {
   const { locale: raw } = await params;
@@ -23,11 +31,11 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
       <section className="container-site pt-24 sm:pt-28">
         <div className="relative tile-quiet aspect-[4/5] sm:aspect-[16/10] lg:aspect-[16/7] flex items-end overflow-hidden">
           <Image
-            src={asset("/images/tour-hero.jpg")}
-            alt="Sergjio"
+            src={"/images/tour-hero.jpg"}
+            alt="Sergjio performing live with microtonal instruments"
             fill
             priority
-            sizes="100vw"
+            sizes="(min-width: 1280px) 1184px, 100vw"
             className="object-cover object-[70%_35%]"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-ink via-ink/40 to-transparent sm:bg-gradient-to-b sm:from-ink/40 sm:via-ink/30 sm:to-ink/90" />
@@ -77,7 +85,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-5">
           <div className="tile-quiet relative aspect-[4/5] lg:aspect-auto">
             <Image
-              src={asset("/images/youtube-thumb-1.jpg")}
+              src={"/images/youtube-thumb-1.jpg"}
               alt="Sergjio — Saz, Cornet, DJ"
               fill
               sizes="(min-width: 1024px) 50vw, 100vw"
@@ -127,7 +135,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
       {/* SOCIAL TILES */}
       <section className="container-site py-16 sm:py-24">
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-5">
-          {(Object.entries(SITE.social) as [SocialNetwork, (typeof SITE.social)[SocialNetwork]][]).map(
+          {socialEntries().map(
             ([key, s]) => (
               <a
                 key={s.url}
@@ -143,7 +151,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
                   />
                   <span className="uppercase-brand text-[11px] text-cream/60">{tr.common.follow} ↗</span>
                 </div>
-                <p className="uppercase-brand text-xl sm:text-2xl text-white break-all">{s.handle}</p>
+                <p className="uppercase-brand text-xl sm:text-2xl text-white break-words">{s.handle}</p>
               </a>
             ),
           )}
@@ -152,9 +160,9 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
 
       {/* CTA */}
       <section className="container-site py-16 sm:py-24">
-        <div className="relative tile-quiet aspect-[16/9] sm:aspect-[16/7] flex items-center justify-center text-center overflow-hidden">
+        <div className="relative tile-quiet aspect-[4/5] sm:aspect-[16/9] lg:aspect-[16/7] flex items-center justify-center text-center overflow-hidden">
           <Image
-            src={asset("/images/cta-background.png")}
+            src={"/images/cta-background.png"}
             alt=""
             fill
             sizes="100vw"

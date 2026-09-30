@@ -1,6 +1,7 @@
 import { localized, type Event } from "@/lib/events";
 import { whatsappLink } from "@/lib/whatsapp";
 import { t, type Locale } from "@/lib/i18n";
+import SocialIcon from "@/components/SocialIcon";
 
 export default function EventCard({
   event,
@@ -13,11 +14,11 @@ export default function EventCard({
 }) {
   const e = localized(event, locale);
   const tr = t(locale);
-  const wa = whatsappLink(locale, event.title, e.displayDate, event.venue);
+  const wa = whatsappLink(locale, event.title, e.displayDate, event.venue, past);
 
   return (
     <article
-      className={`tile p-6 sm:p-8 flex flex-col gap-5 h-full ${past ? "opacity-70" : ""}`}
+      className="tile p-6 sm:p-8 flex flex-col gap-5 h-full"
     >
       <div className="flex items-baseline justify-between gap-4">
         <p className="uppercase-brand text-xs text-white">
@@ -44,6 +45,25 @@ export default function EventCard({
         <p className="text-sm text-cream/70 normal-case font-normal leading-relaxed">
           {e.description}
         </p>
+      )}
+
+      {event.links && event.links.length > 0 && (
+        <div className="flex flex-wrap gap-x-4 gap-y-1.5">
+          {event.links.map((l) => (
+            <a
+              key={l.url}
+              href={l.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="uppercase-brand text-[11px] text-cream/70 hover:text-white inline-flex items-center gap-1.5"
+            >
+              {l.url.includes("instagram.com") && (
+                <SocialIcon network="instagram" className="w-3.5 h-3.5" />
+              )}
+              <span>{l.label} ↗</span>
+            </a>
+          ))}
+        </div>
       )}
 
       <a

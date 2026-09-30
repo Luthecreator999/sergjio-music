@@ -1,6 +1,6 @@
 import Link from "next/link";
-import { SITE } from "@/lib/site";
-import SocialIcon, { type SocialNetwork } from "@/components/SocialIcon";
+import { SITE, socialEntries } from "@/lib/site";
+import SocialIcon from "@/components/SocialIcon";
 import { NAV_KEYS, t, type Locale, localizedHref } from "@/lib/i18n";
 
 export default function Footer({ locale }: { locale: Locale }) {
@@ -19,7 +19,7 @@ export default function Footer({ locale }: { locale: Locale }) {
         </div>
 
         <div>
-          <h4 className="uppercase-brand text-xs text-white mb-4">{tr.footer.listenOn}</h4>
+          <h2 className="uppercase-brand text-xs text-white mb-4">{tr.footer.listenOn}</h2>
           <ul className="space-y-3 text-xs">
             {Object.values(SITE.streaming).map((s) => (
               <li key={s.label}>
@@ -37,9 +37,9 @@ export default function Footer({ locale }: { locale: Locale }) {
         </div>
 
         <div>
-          <h4 className="uppercase-brand text-xs text-white mb-4">{tr.footer.followOn}</h4>
+          <h2 className="uppercase-brand text-xs text-white mb-4">{tr.footer.followOn}</h2>
           <ul className="space-y-3 text-xs">
-            {(Object.entries(SITE.social) as [SocialNetwork, (typeof SITE.social)[SocialNetwork]][]).map(
+            {socialEntries().map(
               ([key, s]) => (
                 <li key={s.url}>
                   <a
@@ -71,8 +71,16 @@ export default function Footer({ locale }: { locale: Locale }) {
               </Link>
             ))}
           </nav>
-          <p className="uppercase-brand text-[11px] text-cream/50">
-            © {new Date().getFullYear()} Sergjio Music
+          <p className="uppercase-brand text-[11px] text-cream/70">
+            © {new Date().getFullYear()} Sergjio Music · Design{" "}
+            <a
+              href={SITE.designer.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:text-white"
+            >
+              {SITE.designer.name}
+            </a>
           </p>
         </div>
       </div>

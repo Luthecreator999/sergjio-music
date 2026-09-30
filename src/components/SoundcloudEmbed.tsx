@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 
 type Props = {
   handle: string;
@@ -14,20 +15,21 @@ export default function SoundcloudEmbed({ handle, posterSrc, posterAlt, ctaLabel
   const src = `https://w.soundcloud.com/player/?url=https%3A%2F%2Fsoundcloud.com%2F${handle}&color=%23ff6a1f&auto_play=true&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true&visual=true`;
 
   return (
-    <div className="tile relative w-full overflow-hidden" style={{ minHeight: 480 }}>
+    <div className="tile relative w-full overflow-hidden">
       {!active ? (
         <button
           type="button"
           onClick={() => setActive(true)}
           aria-label={ctaLabel}
-          className="group relative block w-full p-0 m-0 border-0 bg-transparent cursor-pointer"
-          style={{ aspectRatio: "16 / 9", minHeight: 480 }}
+          className="group relative block w-full aspect-video p-0 m-0 border-0 bg-transparent cursor-pointer"
         >
-          <img
+          <Image
             src={posterSrc}
             alt={posterAlt}
-            className="absolute inset-0 w-full h-full object-cover group-hover:scale-[1.02] transition-transform duration-500"
+            fill
             loading="lazy"
+            sizes="100vw"
+            className="object-cover group-hover:scale-[1.02] transition-transform duration-500"
           />
           <span className="absolute inset-0 flex items-center justify-center bg-ink/55 group-hover:bg-ink/40 transition-colors">
             <span className="flex flex-col items-center gap-4 px-6 text-center">

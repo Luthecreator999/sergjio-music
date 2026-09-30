@@ -1,7 +1,7 @@
-type Network = "instagram" | "tiktok" | "youtube";
+import type { SocialNetwork } from "@/lib/site";
 
 type Props = {
-  network: Network;
+  network: SocialNetwork;
   className?: string;
 };
 
@@ -28,4 +28,4 @@ export default function SocialIcon({ network, className }: Props) {
   }
 }
 
-export type SocialNetwork = Network;
+export type { SocialNetwork };

@@ -25,12 +25,4 @@ export const VIDEOS = {
     poster: "/images/sergjio-thumbnail.jpg",
     label: "DJ Portfolio Reel",
   },
-  liveLandscape: {
-    src: "/videos/sergjio-live.mp4",
-    width: 3840,
-    height: 2160, // Landscape 16:9 4K
-    label: "Live Performance",
-  },
 } as const satisfies Record<string, VideoAsset>;
-
-export type VideoKey = keyof typeof VIDEOS;

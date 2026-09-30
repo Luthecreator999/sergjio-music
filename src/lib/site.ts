@@ -1,10 +1,8 @@
 export const SITE = {
   name: "Sergjio Music",
-  tagline: "Live microtonal instruments inside electronic music",
   email: "ramonsergjio@gmail.com",
   phone: "+41 79 966 21 77",
   phoneIntl: "41799662177",
-  location: "Switzerland",
   designer: { name: "@jadimedia", url: "https://www.jadimedia.ch" },
   social: {
     instagram: { handle: "@s.e.r.g.j.i.o", url: "https://www.instagram.com/s.e.r.g.j.i.o/" },
@@ -21,10 +19,8 @@ export const SITE = {
   },
 } as const;
 
-export const NAV = [
-  { label: "Story", href: "/about" },
-  { label: "DJ Sets", href: "/dj" },
-  { label: "Musik", href: "/releases" },
-  { label: "Live Termine", href: "/tour" },
-  { label: "Booking", href: "/booking" },
-] as const;
+export type SocialNetwork = keyof typeof SITE.social;
+
+/** Typed entries of SITE.social — avoids repeating the cast at each call site. */
+export const socialEntries = () =>
+  Object.entries(SITE.social) as [SocialNetwork, (typeof SITE.social)[SocialNetwork]][];

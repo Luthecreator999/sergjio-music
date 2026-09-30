@@ -19,6 +19,8 @@ export const YOUTUBE_VIDEOS: YoutubeVideo[] = [
   { id: "7KwuVmv0ssg", title: "Switzerland National Anthem" },
 ];
 
-export const ytThumbnail = (id: string) => `https://i.ytimg.com/vi/${id}/hqdefault.jpg`;
+// hq720 is native 16:9 at 1280×720 — fills the aspect-video tile without the
+// letterbox crop of the 4:3 hqdefault, and gives enough source for retina.
+export const ytThumbnail = (id: string) => `https://i.ytimg.com/vi/${id}/hq720.jpg`;
 export const ytEmbed = (id: string) => `https://www.youtube-nocookie.com/embed/${id}?autoplay=1&rel=0`;
 export const ytWatch = (id: string) => `https://www.youtube.com/watch?v=${id}`;

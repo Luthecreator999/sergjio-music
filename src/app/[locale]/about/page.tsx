@@ -1,8 +1,14 @@
-import { asset } from "@/lib/asset";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { isLocale, t, localizedHref, type Locale } from "@/lib/i18n";
+import { pageMetadata } from "@/lib/seo";
+import PageHero from "@/components/PageHero";
+
+export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }) {
+  const { locale } = await params;
+  return isLocale(locale) ? pageMetadata(locale, "about") : {};
+}
 
 const INSTRUMENTS = [
   { key: "Azeri Tar", image: "/images/instrument-azeri-tar.jpeg" },
@@ -43,31 +49,21 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
 
   return (
     <>
-      {/* Hero — portrait full-bleed mobile */}
-      <section className="container-site pt-24 sm:pt-28">
-        <div className="relative tile-quiet aspect-[4/5] sm:aspect-[16/10] lg:aspect-[16/7] flex items-end overflow-hidden">
-          <Image
-            src={asset("/images/archive-live-1.jpg")}
-            alt="Sergjio playing Soprano Cornet"
-            fill
-            priority
-            sizes="100vw"
-            className="object-cover object-[center_30%]"
-          />
-          <div className="absolute inset-0 bg-gradient-to-t from-ink via-ink/40 to-transparent sm:bg-gradient-to-b sm:from-ink/40 sm:via-ink/30 sm:to-ink/90" />
-          <div className="relative p-6 sm:p-10 lg:p-14 w-full">
-            <p className="uppercase-brand text-xs text-cream/80 mb-3">{tr.about.label}</p>
-            <h1 className="uppercase-brand text-display-xl text-white drop-shadow-lg">{tr.about.title}</h1>
-          </div>
-        </div>
-      </section>
+      <PageHero
+        image="/images/archive-live-1.jpg"
+        imageAlt="Sergjio playing the Soprano Cornet on stage"
+        label={tr.about.label}
+        title={tr.about.title}
+        objectPosition="center 30%"
+        size="tall"
+      />
 
       {/* Story bento — equal split */}
       <section className="container-site py-16">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-5">
           <div className="tile-quiet relative aspect-[3/4]">
             <Image
-              src={asset("/images/archive-live-2.jpg")}
+              src={"/images/archive-live-2.jpg"}
               alt="Sergjio with Saz live"
               fill
               sizes="(min-width: 1024px) 50vw, 100vw"
@@ -106,7 +102,7 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
             <article key={i.key} className="tile flex flex-col">
               <div className="relative aspect-square">
                 <Image
-                  src={asset(i.image)}
+                  src={i.image}
                   alt={i.key}
                   fill
                   sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"

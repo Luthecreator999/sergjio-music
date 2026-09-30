@@ -32,6 +32,10 @@ type Dict = {
     watch: string;
     aboutSergjio: string;
     djSergjio: string;
+    skipToContent: string;
+    menu: string;
+    closeMenu: string;
+    pressKit: string;
   };
   home: {
     location: string;
@@ -66,6 +70,10 @@ type Dict = {
     intro: string;
     features: { h: string; p: string }[];
     galleryTitle: string;
+    liveFeed: string;
+    latestTitle: string;
+    openSoundcloud: string;
+    playSoundcloud: string;
   };
   tour: {
     label: string;
@@ -98,6 +106,7 @@ type Dict = {
   };
   whatsapp: {
     eventInquiry: (title: string, date: string, venue: string) => string;
+    eventPastInquiry: (title: string, date: string, venue: string) => string;
     bookingInquiry: (category: string, name: string, msg: string) => string;
   };
 };
@@ -129,6 +138,10 @@ export const DICT: Record<Locale, Dict> = {
       watch: "Anschauen",
       aboutSergjio: "Über Sergjio",
       djSergjio: "DJ Sergjio",
+      skipToContent: "Zum Inhalt springen",
+      menu: "Menü öffnen",
+      closeMenu: "Menü schliessen",
+      pressKit: "Press Kit (PDF)",
     },
     home: {
       location: "Schweiz · Weltweit verfügbar",
@@ -138,9 +151,9 @@ export const DICT: Record<Locale, Dict> = {
       upcomingShows: "Kommende Shows",
       aboutTitle: "Sergjio Music",
       aboutP1:
-        "Sergjios Sound lebt vom Charakter echter Live-Instrumente — Azeri Tar, Uzun Saz Bağlama und Sopran-Cornet — und erschafft warme, emotionale Klanglandschaften, die zum tiefen Hinhören einladen.",
+        "Sergjios Sound lebt vom Charakter echter Live-Instrumente — Azeri Tar, Uzun Saz Bağlama und Soprano Cornet — und erschafft warme, emotionale Klanglandschaften, die zum tiefen Hinhören einladen.",
       aboutP2:
-        "Verwurzelt in klassischer Ausbildung und kulturellen Traditionen erkundet er den Raum zwischen organischem Ausdruck und zeitgenössischer elektronischer Musik — Drum & Bass, Cumbia, Club.",
+        "Verwurzelt in klassischer Ausbildung und kulturellen Traditionen erkundet er den Raum zwischen organischem Ausdruck und zeitgenössischer elektronischer Musik — House, Cumbia, Club.",
       youtubeTitle: "Auf YouTube ansehen",
       ctaTitle: "Musik, die im Moment lebt",
       ctaSub:
@@ -158,7 +171,7 @@ export const DICT: Record<Locale, Dict> = {
       features: [
         { h: "Live-Instrumental-Performance", p: "Mikrotonale Instrumente in immersivem Live-Ausdruck." },
         { h: "Emotionsgetriebener Auftritt", p: "Intim, atmosphärisch und kraftvoll." },
-        { h: "Traditionelle Instrumente", p: "Azeri Tar, Saz, Bağlama & Sopran-Cornet." },
+        { h: "Traditionelle Instrumente", p: "Azeri Tar, Saz, Bağlama & Soprano Cornet." },
       ],
       instrumentsTitle: "Sergjios Instrumente",
       quote:
@@ -169,15 +182,19 @@ export const DICT: Record<Locale, Dict> = {
       title: "DJ Sergjio",
       sub: "Mein DJ-Set",
       intro:
-        "Energiegeladene DJ-Sets, die das Publikum vom ersten Drop bis zum letzten Beat bewegen. Elektronischer Sound trifft kulturelle Einflüsse — Drum & Bass, Jungle, Cumbia und Club-Edits.",
+        "Energiegeladene DJ-Sets, die das Publikum vom ersten Drop bis zum letzten Beat bewegen. Elektronischer Sound trifft kulturelle Einflüsse — House, Jungle, Cumbia und Club-Edits.",
       features: [
         { h: "Energiegeladene Sets", p: "Wirkungsvolle Übergänge und dynamische Drops." },
-        { h: "Jungle & DnB", p: "Tief, liquid und hochenergetisch." },
+        { h: "Jungle & House", p: "Tief, liquid und hochenergetisch." },
         { h: "Electronic Fusion", p: "Kulturelle Elemente trifft Club-Sound." },
         { h: "Adaptives Format", p: "Clubs, Festivals und Hybrid-Live-Sets." },
         { h: "Schweiz-basiert", p: "Verfügbar für internationale Bookings." },
       ],
       galleryTitle: "Live",
+      liveFeed: "Soundcloud · Live Feed",
+      latestTitle: "Aktuelle Sets, Mixes & Releases",
+      openSoundcloud: "Auf Soundcloud öffnen ↗",
+      playSoundcloud: "Soundcloud-Player abspielen",
     },
     tour: {
       label: "#sergjioontour",
@@ -216,6 +233,8 @@ export const DICT: Record<Locale, Dict> = {
     whatsapp: {
       eventInquiry: (title, date, venue) =>
         `Ciao Sergjio, ich interessiere mich für den Event "${title}" am ${date} im ${venue}. Hast du einen Ticket-Link oder mehr Infos für mich?`,
+      eventPastInquiry: (title, date, venue) =>
+        `Ciao Sergjio, ich habe eine Frage zu deinem Auftritt "${title}" am ${date} im ${venue}. Gibt es dazu Fotos, Aufnahmen oder mehr Infos?`,
       bookingInquiry: (category, name, msg) =>
         `Ciao Sergjio, Booking-Anfrage (${category}) von ${name || "..."}: ${msg || "..."}`,
     },
@@ -247,6 +266,10 @@ export const DICT: Record<Locale, Dict> = {
       watch: "Watch",
       aboutSergjio: "About Sergjio",
       djSergjio: "DJ Sergjio",
+      skipToContent: "Skip to content",
+      menu: "Open menu",
+      closeMenu: "Close menu",
+      pressKit: "Press Kit (PDF)",
     },
     home: {
       location: "Switzerland · Available worldwide",
@@ -258,7 +281,7 @@ export const DICT: Record<Locale, Dict> = {
       aboutP1:
         "Sergjio's sound is defined by the character of live instruments including the Azeri Tar, Uzun Saz Bağlama, and Soprano Cornet, forming warm and emotional soundscapes that invite deep listening.",
       aboutP2:
-        "Rooted in classical training and shaped by cultural sound traditions, his performances explore the space between organic expression and contemporary electronic music — Drum & Bass, Cumbia, Club.",
+        "Rooted in classical training and shaped by cultural sound traditions, his performances explore the space between organic expression and contemporary electronic music — House, Cumbia, Club.",
       youtubeTitle: "Check Out On YouTube",
       ctaTitle: "Music that lives in the moment",
       ctaSub:
@@ -287,15 +310,19 @@ export const DICT: Record<Locale, Dict> = {
       title: "DJ Sergjio",
       sub: "My DJ Set",
       intro:
-        "High-energy DJ sets that move the crowd from the first drop to the last beat. Blending electronic sound with cultural influence — Drum & Bass, Jungle, Cumbia and club edits.",
+        "High-energy DJ sets that move the crowd from the first drop to the last beat. Blending electronic sound with cultural influence — House, Jungle, Cumbia and club edits.",
       features: [
         { h: "Energy Driven Sets", p: "High-impact transitions and dynamic drops." },
-        { h: "Jungle & DnB", p: "Deep, liquid and high-energy rhythms." },
+        { h: "Jungle & House", p: "Deep, liquid and high-energy rhythms." },
         { h: "Electronic Fusion", p: "Blending cultural elements with club sound." },
         { h: "Adaptive Format", p: "Clubs, festivals and hybrid live sets." },
         { h: "Switzerland Based", p: "Available for international bookings." },
       ],
       galleryTitle: "Live",
+      liveFeed: "Soundcloud · Live Feed",
+      latestTitle: "Latest Sets, Mixes & Releases",
+      openSoundcloud: "Open on Soundcloud ↗",
+      playSoundcloud: "Play Soundcloud player",
     },
     tour: {
       label: "#sergjioontour",
@@ -334,6 +361,8 @@ export const DICT: Record<Locale, Dict> = {
     whatsapp: {
       eventInquiry: (title, date, venue) =>
         `Hi Sergjio, I'm interested in your event "${title}" on ${date} at ${venue}. Do you have a ticket link or more info for me?`,
+      eventPastInquiry: (title, date, venue) =>
+        `Hi Sergjio, I have a question about your show "${title}" on ${date} at ${venue}. Are there any photos, recordings or more info?`,
       bookingInquiry: (category, name, msg) =>
         `Hi Sergjio, booking inquiry (${category}) from ${name || "..."}: ${msg || "..."}`,
     },

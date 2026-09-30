@@ -12,11 +12,36 @@ export type Event = {
   title: string;
   format: { de: string; en: string };
   description?: { de: string; en: string };
+  /** Optional related links (e.g. a collaborating act's Instagram). */
+  links?: { label: string; url: string }[];
 };
 
-const TODAY = "2026-04-28";
+// Local calendar date as YYYY-MM-DD. String comparison against event dates
+// works because every event date uses the same zero-padded ISO format.
+// `sv-SE` yields an ISO-8601 date; the CH timezone keeps the day boundary local.
+// NOTE: evaluated once per render of the module — on statically-generated
+// pages that means build time, so any page using upcoming/pastEvents must set
+// `export const revalidate` (home + tour do, at 24h) to keep the split fresh.
+const TODAY = new Date().toLocaleDateString("sv-SE", { timeZone: "Europe/Zurich" });
 
 export const EVENTS: Event[] = [
+  {
+    id: "fiesta-cumbia-vario-olten-2026-09-19",
+    date: "2026-09-19",
+    displayDate: { de: "19. September 2026", en: "September 19, 2026" },
+    city: "Olten",
+    country: { de: "Schweiz", en: "Switzerland" },
+    venue: "Vario Bar, Olten",
+    title: "Fiesta Cumbia",
+    format: { de: "Cumbia — Live", en: "Cumbia — Live" },
+    description: {
+      de: "Fiesta Cumbia mit Los Malditos Basureros in der Vario Bar Olten.",
+      en: "Fiesta Cumbia with Los Malditos Basureros at Vario Bar Olten.",
+    },
+    links: [
+      { label: "Los Malditos Basureros", url: "https://www.instagram.com/losmalditosbasureros/" },
+    ],
+  },
   {
     id: "saelischloessli-olten-2026-05-03",
     date: "2026-05-03",
@@ -40,10 +65,10 @@ export const EVENTS: Event[] = [
     country: { de: "Schweiz", en: "Switzerland" },
     venue: "Ländifestival",
     title: "Sergjio @ Ländifestival",
-    format: { de: "Live DnB DJ-Set mit Instrumenten", en: "Live DnB DJ Set with Instruments" },
+    format: { de: "Live House DJ-Set mit Instrumenten", en: "Live House DJ Set with Instruments" },
     description: {
-      de: "Drum & Bass DJ-Set mit Live-Instrumenten. Open Air an der Aare.",
-      en: "Drum & Bass DJ set with live instruments. Open air by the Aare.",
+      de: "House DJ-Set mit Live-Instrumenten. Open Air an der Aare.",
+      en: "House DJ set with live instruments. Open air by the Aare.",
     },
   },
   {
@@ -54,10 +79,10 @@ export const EVENTS: Event[] = [
     country: { de: "Deutschland", en: "Germany" },
     venue: "Club Gretchen",
     title: "Sergjio with Physicalz",
-    format: { de: "Drum and Bass — Club-Set", en: "Drum and Bass — Club Set" },
+    format: { de: "House — Club-Set", en: "House — Club Set" },
     description: {
-      de: "Club-Show mit Physicalz im Gretchen Berlin. Drum and Bass mit kulturellem Twist.",
-      en: "Club show with Physicalz at Gretchen Berlin. Drum and Bass with a cultural twist.",
+      de: "Club-Show mit Physicalz im Gretchen Berlin. House mit kulturellem Twist.",
+      en: "Club show with Physicalz at Gretchen Berlin. House with a cultural twist.",
     },
   },
   {
@@ -68,10 +93,10 @@ export const EVENTS: Event[] = [
     country: { de: "Deutschland", en: "Germany" },
     venue: "Club Gretchen",
     title: "Sergjio Live Solo Set",
-    format: { de: "Live Solo — Instrumental Drum and Bass", en: "Live Solo — Instrumental Drum and Bass" },
+    format: { de: "Live Solo — Instrumental House", en: "Live Solo — Instrumental House" },
     description: {
-      de: "Solo-Live-Set mit Instrumenten. Mikrotonaler DnB.",
-      en: "Solo live set with instruments. Microtonal DnB.",
+      de: "Solo-Live-Set mit Instrumenten. Mikrotonaler House.",
+      en: "Solo live set with instruments. Microtonal House.",
     },
   },
   {
@@ -81,12 +106,12 @@ export const EVENTS: Event[] = [
     displayDate: { de: "19. & 20. Juni 2026", en: "June 19–20, 2026" },
     city: "Zürich",
     country: { de: "Schweiz", en: "Switzerland" },
-    venue: "Open Air (Los Bassureros)",
-    title: "Live Concert with Los Bassureros",
+    venue: "Open Air (Los Malditos Basureros)",
+    title: "Live Concert with Los Malditos Basureros",
     format: { de: "Cumbia Band Live — Open Air", en: "Cumbia Band Live — Open Air" },
     description: {
-      de: "Zwei Tage Open Air mit der Zürcher Cumbia-Band Los Bassureros.",
-      en: "Two days open air with Zurich's cumbia band Los Bassureros.",
+      de: "Zwei Tage Open Air mit der Zürcher Cumbia-Band Los Malditos Basureros.",
+      en: "Two days open air with Zurich's cumbia band Los Malditos Basureros.",
     },
   },
   {
@@ -97,7 +122,7 @@ export const EVENTS: Event[] = [
     country: { de: "Deutschland", en: "Germany" },
     venue: "Fusion Festival, Flugplatz Lärz, Mecklenburg",
     title: "Sergjio with Physicalz @ Fusion",
-    format: { de: "Drum and Bass — Festival-Set", en: "Drum and Bass — Festival Set" },
+    format: { de: "House — Festival-Set", en: "House — Festival Set" },
     description: {
       de: "Set auf dem Fusion Festival in Mecklenburg-Vorpommern mit Physicalz.",
       en: "Set at Fusion Festival in Mecklenburg-Vorpommern with Physicalz.",
@@ -132,11 +157,11 @@ export const EVENTS: Event[] = [
     city: "Zürich",
     country: { de: "Schweiz", en: "Switzerland" },
     venue: "Dynamo Werk21",
-    title: "Live Concert Bassureros",
+    title: "Live Concert Los Malditos Basureros",
     format: { de: "Live-Konzert", en: "Live Concert" },
     description: {
-      de: "Live-Konzert mit Bassureros im Dynamo Werk21.",
-      en: "Live concert with Bassureros at Dynamo Werk21.",
+      de: "Live-Konzert mit Los Malditos Basureros im Dynamo Werk21.",
+      en: "Live concert with Los Malditos Basureros at Dynamo Werk21.",
     },
   },
   {
@@ -147,10 +172,10 @@ export const EVENTS: Event[] = [
     country: { de: "Deutschland", en: "Germany" },
     venue: "Wintergarten",
     title: "Sergjio with Physicalz",
-    format: { de: "Drum and Bass", en: "Drum and Bass" },
+    format: { de: "House", en: "House" },
     description: {
-      de: "DnB-Set mit Physicalz im Wintergarten Überlingen.",
-      en: "DnB set with Physicalz at Wintergarten Überlingen.",
+      de: "House-Set mit Physicalz im Wintergarten Überlingen.",
+      en: "House set with Physicalz at Wintergarten Überlingen.",
     },
   },
   {
@@ -161,7 +186,7 @@ export const EVENTS: Event[] = [
     country: { de: "Deutschland", en: "Germany" },
     venue: "Wintergarten",
     title: "Sergjio Solo Live Set",
-    format: { de: "Solo Live — Drum and Bass", en: "Solo Live — Drum and Bass" },
+    format: { de: "Solo Live — House", en: "Solo Live — House" },
     description: {
       de: "Solo-Live-Set mit Instrumenten.",
       en: "Solo live set with instruments.",
@@ -175,10 +200,10 @@ export const EVENTS: Event[] = [
     country: { de: "Schweiz", en: "Switzerland" },
     venue: "Mokka",
     title: "Sergjio with Physicalz",
-    format: { de: "Drum and Bass", en: "Drum and Bass" },
+    format: { de: "House", en: "House" },
     description: {
-      de: "DnB-Set mit Physicalz im Mokka Thun.",
-      en: "DnB set with Physicalz at Mokka Thun.",
+      de: "House-Set mit Physicalz im Mokka Thun.",
+      en: "House set with Physicalz at Mokka Thun.",
     },
   },
   {
@@ -189,7 +214,7 @@ export const EVENTS: Event[] = [
     country: { de: "Schweiz", en: "Switzerland" },
     venue: "Mokka",
     title: "Sergjio Solo Live Set",
-    format: { de: "Solo Live — Drum and Bass", en: "Solo Live — Drum and Bass" },
+    format: { de: "Solo Live — House", en: "Solo Live — House" },
     description: {
       de: "Solo-Live-Set mit Instrumenten im Mokka Thun.",
       en: "Solo live set with instruments at Mokka Thun.",
@@ -203,7 +228,7 @@ export const EVENTS: Event[] = [
     country: { de: "Schweiz", en: "Switzerland" },
     venue: "Jamaica Charity Event",
     title: "Sergjio with Physicalz",
-    format: { de: "Drum and Bass — Charity", en: "Drum and Bass — Charity" },
+    format: { de: "House — Charity", en: "House — Charity" },
     description: {
       de: "Charity-Event in Basel mit Physicalz.",
       en: "Charity event in Basel with Physicalz.",
@@ -237,7 +262,9 @@ export const upcomingEvents = () =>
   EVENTS.filter((e) => (e.endDate ?? e.date) >= TODAY).sort((a, b) => a.date.localeCompare(b.date));
 
 export const pastEvents = () =>
-  EVENTS.filter((e) => (e.endDate ?? e.date) < TODAY).sort((a, b) => b.date.localeCompare(a.date));
+  EVENTS.filter((e) => (e.endDate ?? e.date) < TODAY).sort((a, b) =>
+    (b.endDate ?? b.date).localeCompare(a.endDate ?? a.date),
+  );
 
 export const localized = (e: Event, locale: Locale) => ({
   ...e,

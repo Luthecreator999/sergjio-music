@@ -1,9 +1,18 @@
-import { asset } from "@/lib/asset";
-import Image from "next/image";
 import { upcomingEvents, pastEvents } from "@/lib/events";
 import EventCard from "@/components/EventCard";
+import PageHero from "@/components/PageHero";
+import JsonLd from "@/components/JsonLd";
 import { isLocale, t, type Locale } from "@/lib/i18n";
+import { pageMetadata, eventsSchema } from "@/lib/seo";
 import { notFound } from "next/navigation";
+
+// Regenerate daily so the upcoming/past split advances without a redeploy.
+export const revalidate = 86400;
+
+export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }) {
+  const { locale } = await params;
+  return isLocale(locale) ? pageMetadata(locale, "tour") : {};
+}
 
 export default async function TourPage({ params }: { params: Promise<{ locale: string }> }) {
   const { locale: raw } = await params;
@@ -15,24 +24,15 @@ export default async function TourPage({ params }: { params: Promise<{ locale: s
 
   return (
     <>
-      {/* Hero — portrait full-bleed mobile */}
-      <section className="container-site pt-24 sm:pt-28">
-        <div className="relative tile-quiet aspect-[4/5] sm:aspect-[16/9] lg:aspect-[16/6] flex items-end overflow-hidden">
-          <Image
-            src={asset("/images/tour-hero.jpg")}
-            alt=""
-            fill
-            priority
-            sizes="100vw"
-            className="object-cover object-[70%_35%]"
-          />
-          <div className="absolute inset-0 bg-gradient-to-t from-ink via-ink/50 to-transparent sm:bg-gradient-to-b sm:from-ink/40 sm:via-ink/30 sm:to-ink/85" />
-          <div className="relative p-6 sm:p-10 lg:p-14 w-full">
-            <p className="uppercase-brand text-xs text-cream/80 mb-3">{tr.tour.label}</p>
-            <h1 className="uppercase-brand text-display-xl text-white drop-shadow-lg">{tr.tour.title}</h1>
-          </div>
-        </div>
-      </section>
+      <JsonLd data={eventsSchema(upcoming, locale)} />
+      <PageHero
+        image="/images/tour-hero.jpg"
+        imageAlt="Sergjio performing live on stage"
+        label={tr.tour.label}
+        title={tr.tour.title}
+        objectPosition="70% 35%"
+        size="wide"
+      />
 
       {/* Stats bento */}
       <section className="container-site py-12">

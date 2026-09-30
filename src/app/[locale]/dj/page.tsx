@@ -1,12 +1,18 @@
-import { asset } from "@/lib/asset";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { isLocale, t, localizedHref, type Locale } from "@/lib/i18n";
+import { pageMetadata } from "@/lib/seo";
 import { SITE } from "@/lib/site";
+import PageHero from "@/components/PageHero";
 import SiteVideo from "@/components/SiteVideo";
 import SoundcloudEmbed from "@/components/SoundcloudEmbed";
 import { VIDEOS } from "@/lib/media";
+
+export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }) {
+  const { locale } = await params;
+  return isLocale(locale) ? pageMetadata(locale, "dj") : {};
+}
 
 const GALLERY = [
   "/images/dj-live-2.jpg",
@@ -25,25 +31,15 @@ export default async function DJPage({ params }: { params: Promise<{ locale: str
 
   return (
     <>
-      {/* Hero — portrait full-bleed mobile */}
-      <section className="container-site pt-24 sm:pt-28">
-        <div className="relative tile-quiet aspect-[4/5] sm:aspect-[16/10] lg:aspect-[16/7] flex items-end overflow-hidden">
-          <Image
-            src={asset("/images/dj-live-5.jpg")}
-            alt="DJ Sergjio"
-            fill
-            priority
-            sizes="100vw"
-            className="object-cover object-[center_30%]"
-          />
-          <div className="absolute inset-0 bg-gradient-to-t from-ink via-ink/40 to-transparent sm:bg-gradient-to-b sm:from-ink/40 sm:via-ink/30 sm:to-ink/85" />
-          <div className="relative p-6 sm:p-10 lg:p-14 w-full">
-            <p className="uppercase-brand text-xs text-cream/80 mb-3">{tr.dj.label}</p>
-            <h1 className="uppercase-brand text-display-xl text-white drop-shadow-lg">{tr.dj.title}</h1>
-            <p className="uppercase-brand text-display-md text-cream/90 mt-3">{tr.dj.sub}</p>
-          </div>
-        </div>
-      </section>
+      <PageHero
+        image="/images/dj-live-5.jpg"
+        imageAlt="DJ Sergjio performing a live set"
+        label={tr.dj.label}
+        title={tr.dj.title}
+        subtitle={tr.dj.sub}
+        objectPosition="center 30%"
+        size="tall"
+      />
 
       {/* Intro */}
       <section className="container-site py-16">
@@ -58,10 +54,8 @@ export default async function DJPage({ params }: { params: Promise<{ locale: str
       <section className="container-site pb-16">
         <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 mb-6">
           <div>
-            <p className="uppercase-brand text-xs text-cream/60 mb-2">Soundcloud · Live Feed</p>
-            <h2 className="uppercase-brand text-display-md text-white">
-              {locale === "de" ? "Aktuelle Sets, Mixes & Releases" : "Latest Sets, Mixes & Releases"}
-            </h2>
+            <p className="uppercase-brand text-xs text-cream/60 mb-2">{tr.dj.liveFeed}</p>
+            <h2 className="uppercase-brand text-display-md text-white">{tr.dj.latestTitle}</h2>
           </div>
           <a
             href={SITE.streaming.soundcloud.url}
@@ -69,14 +63,14 @@ export default async function DJPage({ params }: { params: Promise<{ locale: str
             rel="noopener noreferrer"
             className="btn-solid self-start sm:self-end"
           >
-            {locale === "de" ? "Auf Soundcloud öffnen ↗" : "Open on Soundcloud ↗"}
+            {tr.dj.openSoundcloud}
           </a>
         </div>
         <SoundcloudEmbed
           handle={SITE.streaming.soundcloud.handle}
-          posterSrc={asset("/images/dj-live-4.jpg")}
-          posterAlt="Sergjio DJ Set"
-          ctaLabel={locale === "de" ? "Soundcloud-Player abspielen" : "Play Soundcloud player"}
+          posterSrc={"/images/dj-live-4.jpg"}
+          posterAlt="Sergjio DJ set poster"
+          ctaLabel={tr.dj.playSoundcloud}
         />
       </section>
 
@@ -101,13 +95,14 @@ export default async function DJPage({ params }: { params: Promise<{ locale: str
       {/* Gallery — uniform grid, all squares */}
       <section className="container-site py-12">
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-4 sm:gap-5">
-          {GALLERY.map((src) => (
+          {GALLERY.map((src, i) => (
             <div key={src} className="tile relative aspect-square overflow-hidden">
               <Image
-                src={asset(src)}
-                alt="DJ Sergjio live"
+                src={src}
+                alt={`DJ Sergjio live — photo ${i + 1}`}
                 fill
-                sizes="(min-width: 1024px) 33vw, (min-width: 768px) 33vw, 50vw"
+                loading="lazy"
+                sizes="(min-width: 768px) 33vw, 50vw"
                 className="object-cover object-[center_25%] hover:scale-105 transition-transform duration-500"
               />
             </div>

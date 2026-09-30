@@ -17,3 +17,8 @@ export function whatsappBooking(locale: Locale, category: string, name: string, 
   const text = DICT[locale].whatsapp.bookingInquiry(category, name, message);
   return `https://wa.me/${SITE.phoneIntl}?text=${encodeURIComponent(text)}`;
 }
+
+export function whatsappEpk(locale: Locale, profile: string) {
+  const text = DICT[locale].whatsapp.epkInquiry(profile);
+  return `https://wa.me/${SITE.phoneIntl}?text=${encodeURIComponent(text)}`;
+}

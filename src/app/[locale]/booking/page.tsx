@@ -1,10 +1,12 @@
 import Image from "next/image";
+import Link from "next/link";
 import { notFound } from "next/navigation";
 import BookingForm from "@/components/BookingForm";
 import PageHero from "@/components/PageHero";
+import { EPK, EPK_KINDS } from "@/lib/epk";
 import { SITE } from "@/lib/site";
-import { isLocale, t, type Locale } from "@/lib/i18n";
-import { pageMetadata } from "@/lib/seo";
+import { isLocale, t, localizedHref, type Locale } from "@/lib/i18n";
+import { pageMetadata, PAGE_PATHS } from "@/lib/seo";
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
@@ -60,14 +62,17 @@ export default async function BookingPage({ params }: { params: Promise<{ locale
                 {tr.common.switzerland} · {tr.common.available}
               </p>
 
-              <a
-                href={"/press/sergjio-presskit.pdf"}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="btn mt-6"
-              >
-                {tr.common.pressKit}
-              </a>
+              <div className="mt-6 flex flex-wrap gap-3">
+                {EPK_KINDS.map((kind) => (
+                  <Link
+                    key={kind}
+                    href={localizedHref(locale, PAGE_PATHS[EPK[kind].page])}
+                    className="btn"
+                  >
+                    {tr.epk.profiles[kind].title}
+                  </Link>
+                ))}
+              </div>
             </div>
           </div>
 

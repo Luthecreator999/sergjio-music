@@ -17,6 +17,9 @@ export const PAGE_PATHS = {
   releases: "/releases",
   tour: "/tour",
   booking: "/booking",
+  epk: "/epk",
+  epkLive: "/epk/live",
+  epkDj: "/epk/dj",
 } as const;
 
 export type PageKey = keyof typeof PAGE_PATHS;
@@ -55,6 +58,21 @@ const META: Record<Locale, Record<PageKey, { title: string; description: string 
       description:
         "Sergjio für Live-Auftritte, DJ-Sets, Festivals und Private Events buchen. Direktkontakt für Presse, Veranstalter und Kollaborationen.",
     },
+    epk: {
+      title: "EPK — Sergjio, Live Multiinstrumentalist & DJ",
+      description:
+        "Electronic Press Kit von Sergjio: Bio, Pressefotos, Videos, Referenzen und Booking-Kontakt — als Live-EPK und als DJ-EPK.",
+    },
+    epkLive: {
+      title: "Live-EPK — Sergjio mit Cornet & Saz",
+      description:
+        "Live-EPK von Sergjio: Bio, Pressefotos, Videos, Referenzen, Technical Rider und Booking-Kontakt für Live-Auftritte mit Cornet und Saz (Bağlama).",
+    },
+    epkDj: {
+      title: "DJ-EPK — Sergjio, DJ-Sets mit Live-Instrumenten",
+      description:
+        "DJ-EPK von Sergjio: Bio, Pressefotos, Videos, Referenzen, Technical Rider und Booking-Kontakt für DJ-Sets mit Live-Instrumenten — digital oder auf Vinyl.",
+    },
   },
   en: {
     home: {
@@ -86,6 +104,21 @@ const META: Record<Locale, Record<PageKey, { title: string; description: string 
       title: "Booking — Book Sergjio",
       description:
         "Book Sergjio for live performances, DJ sets, festivals and private events. Direct contact for press, organizers and collaborations.",
+    },
+    epk: {
+      title: "EPK — Sergjio, Live Multi-Instrumentalist & DJ",
+      description:
+        "Electronic press kit for Sergjio: bio, press photos, videos, references and booking contact — as a live EPK and a DJ EPK.",
+    },
+    epkLive: {
+      title: "Live EPK — Sergjio with Cornet & Saz",
+      description:
+        "Sergjio's live EPK: bio, press photos, videos, references, technical rider and booking contact for live performances with cornet and saz (bağlama).",
+    },
+    epkDj: {
+      title: "DJ EPK — Sergjio, DJ Sets with Live Instruments",
+      description:
+        "Sergjio's DJ EPK: bio, press photos, videos, references, technical rider and booking contact for DJ sets with live instruments — digital or on vinyl.",
     },
   },
 };

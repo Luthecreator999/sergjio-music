@@ -1,7 +1,11 @@
 import type { Locale } from "./i18n";
 
+/** Booking profile an event counts towards — drives the references on the EPK pages. */
+export type EventKind = "live" | "dj";
+
 export type Event = {
   id: string;
+  kinds: EventKind[];
   date: string;
   endDate?: string;
   displayDate: { de: string; en: string };
@@ -21,12 +25,14 @@ export type Event = {
 // `sv-SE` yields an ISO-8601 date; the CH timezone keeps the day boundary local.
 // NOTE: evaluated once per render of the module — on statically-generated
 // pages that means build time, so any page using upcoming/pastEvents must set
-// `export const revalidate` (home + tour do, at 24h) to keep the split fresh.
+// `export const revalidate` (home, tour and the EPK pages do, at 24h) to keep
+// the split fresh.
 const TODAY = new Date().toLocaleDateString("sv-SE", { timeZone: "Europe/Zurich" });
 
 export const EVENTS: Event[] = [
   {
     id: "fiesta-cumbia-vario-olten-2026-09-19",
+    kinds: ["live"],
     date: "2026-09-19",
     displayDate: { de: "19. September 2026", en: "September 19, 2026" },
     city: "Olten",
@@ -44,6 +50,7 @@ export const EVENTS: Event[] = [
   },
   {
     id: "saelischloessli-olten-2026-05-03",
+    kinds: ["live"],
     date: "2026-05-03",
     displayDate: { de: "03. Mai 2026", en: "May 03, 2026" },
     time: "15:00",
@@ -59,6 +66,7 @@ export const EVENTS: Event[] = [
   },
   {
     id: "laendifestival-olten-2026-05-23",
+    kinds: ["live", "dj"],
     date: "2026-05-23",
     displayDate: { de: "23. Mai 2026", en: "May 23, 2026" },
     city: "Olten",
@@ -73,6 +81,7 @@ export const EVENTS: Event[] = [
   },
   {
     id: "gretchen-berlin-physicalz-2026-05-30",
+    kinds: ["dj"],
     date: "2026-05-30",
     displayDate: { de: "30. Mai 2026", en: "May 30, 2026" },
     city: "Berlin",
@@ -87,6 +96,7 @@ export const EVENTS: Event[] = [
   },
   {
     id: "gretchen-berlin-solo-2026-05-30",
+    kinds: ["live"],
     date: "2026-05-30",
     displayDate: { de: "30. Mai 2026", en: "May 30, 2026" },
     city: "Berlin",
@@ -101,6 +111,7 @@ export const EVENTS: Event[] = [
   },
   {
     id: "los-bassureros-openair-2026-06-19",
+    kinds: ["live"],
     date: "2026-06-19",
     endDate: "2026-06-20",
     displayDate: { de: "19. & 20. Juni 2026", en: "June 19–20, 2026" },
@@ -116,6 +127,7 @@ export const EVENTS: Event[] = [
   },
   {
     id: "fusion-festival-laerz-2026-06-27",
+    kinds: ["dj"],
     date: "2026-06-27",
     displayDate: { de: "27. Juni 2026", en: "June 27, 2026" },
     city: "Lärz",
@@ -130,6 +142,7 @@ export const EVENTS: Event[] = [
   },
   {
     id: "vario-jungle-olten-2026-04-17",
+    kinds: ["live"],
     date: "2026-04-17",
     displayDate: { de: "17. April 2026", en: "April 17, 2026" },
     city: "Olten",
@@ -141,6 +154,7 @@ export const EVENTS: Event[] = [
   },
   {
     id: "vario-sergjio-live-olten-2026-04-17",
+    kinds: ["live"],
     date: "2026-04-17",
     displayDate: { de: "17. April 2026", en: "April 17, 2026" },
     city: "Olten",
@@ -152,6 +166,7 @@ export const EVENTS: Event[] = [
   },
   {
     id: "bassureros-dynamo-zuerich-2026-03-28",
+    kinds: ["live"],
     date: "2026-03-28",
     displayDate: { de: "28. März 2026", en: "March 28, 2026" },
     city: "Zürich",
@@ -166,6 +181,7 @@ export const EVENTS: Event[] = [
   },
   {
     id: "ueberlingen-wintergarten-physicalz-2026-03-17",
+    kinds: ["dj"],
     date: "2026-03-17",
     displayDate: { de: "17. März 2026", en: "March 17, 2026" },
     city: "Überlingen",
@@ -180,6 +196,7 @@ export const EVENTS: Event[] = [
   },
   {
     id: "ueberlingen-wintergarten-solo-2026-03-17",
+    kinds: ["live"],
     date: "2026-03-17",
     displayDate: { de: "17. März 2026", en: "March 17, 2026" },
     city: "Überlingen",
@@ -194,6 +211,7 @@ export const EVENTS: Event[] = [
   },
   {
     id: "thun-mokka-physicalz-2026-03-07",
+    kinds: ["dj"],
     date: "2026-03-07",
     displayDate: { de: "07. März 2026", en: "March 07, 2026" },
     city: "Thun",
@@ -208,6 +226,7 @@ export const EVENTS: Event[] = [
   },
   {
     id: "thun-mokka-solo-2026-03-07",
+    kinds: ["live"],
     date: "2026-03-07",
     displayDate: { de: "07. März 2026", en: "March 07, 2026" },
     city: "Thun",
@@ -222,6 +241,7 @@ export const EVENTS: Event[] = [
   },
   {
     id: "basel-jamaica-charity-physicalz-2026-03-07",
+    kinds: ["dj"],
     date: "2026-03-07",
     displayDate: { de: "07. März 2026", en: "March 07, 2026" },
     city: "Basel",
@@ -236,6 +256,7 @@ export const EVENTS: Event[] = [
   },
   {
     id: "the-spot-zuerich-2026-02-15",
+    kinds: ["live"],
     date: "2026-02-15",
     displayDate: { de: "15. Februar 2026", en: "February 15, 2026" },
     city: "Zürich",
@@ -247,6 +268,7 @@ export const EVENTS: Event[] = [
   },
   {
     id: "vario-olten-2026-01-10",
+    kinds: ["live"],
     date: "2026-01-10",
     displayDate: { de: "10. Januar 2026", en: "January 10, 2026" },
     city: "Olten",
@@ -265,6 +287,9 @@ export const pastEvents = () =>
   EVENTS.filter((e) => (e.endDate ?? e.date) < TODAY).sort((a, b) =>
     (b.endDate ?? b.date).localeCompare(a.endDate ?? a.date),
   );
+
+/** Played shows of one booking profile, newest first. */
+export const pastEventsOf = (kind: EventKind) => pastEvents().filter((e) => e.kinds.includes(kind));
 
 export const localized = (e: Event, locale: Locale) => ({
   ...e,

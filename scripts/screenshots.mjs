@@ -8,7 +8,10 @@ const OUT = resolve(__dirname, '../screenshots');
 await mkdir(OUT, { recursive: true });
 
 const BASE = process.env.BASE ?? 'https://sergjio-music.vercel.app';
-const ROUTES = ['/de', '/de/about', '/de/dj', '/de/releases', '/de/tour', '/de/booking'];
+const ROUTES = [
+  '/de', '/de/about', '/de/dj', '/de/releases', '/de/tour', '/de/booking',
+  '/de/epk', '/de/epk/live', '/de/epk/dj',
+];
 
 const VIEWPORTS = [
   { name: 'desktop', viewport: { width: 1440, height: 900 }, deviceScaleFactor: 1, isMobile: false },

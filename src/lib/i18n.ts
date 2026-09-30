@@ -1,3 +1,5 @@
+import type { EventKind } from "./events";
+
 export const locales = ["de", "en"] as const;
 export type Locale = (typeof locales)[number];
 export const defaultLocale: Locale = "de";
@@ -7,7 +9,7 @@ export function isLocale(value: string): value is Locale {
 }
 
 type Dict = {
-  nav: { story: string; dj: string; music: string; tour: string; booking: string };
+  nav: { story: string; dj: string; music: string; tour: string; epk: string; booking: string };
   common: {
     available: string;
     listen: string;
@@ -35,7 +37,6 @@ type Dict = {
     skipToContent: string;
     menu: string;
     closeMenu: string;
-    pressKit: string;
   };
   home: {
     location: string;
@@ -99,6 +100,25 @@ type Dict = {
     sendEmail: string;
     sendWa: string;
   };
+  epk: {
+    label: string;
+    title: string;
+    tagline: string;
+    intro: string;
+    open: string;
+    bioTitle: string;
+    videosTitle: string;
+    photosTitle: string;
+    photosNote: string;
+    download: string;
+    referencesTitle: string;
+    riderTitle: string;
+    riderText: string;
+    riderButton: string;
+    contactTitle: string;
+    whatsapp: string;
+    profiles: Record<EventKind, { title: string; sub: string; teaser: string; bio: string[] }>;
+  };
   footer: {
     listenOn: string;
     followOn: string;
@@ -108,12 +128,52 @@ type Dict = {
     eventInquiry: (title: string, date: string, venue: string) => string;
     eventPastInquiry: (title: string, date: string, venue: string) => string;
     bookingInquiry: (category: string, name: string, msg: string) => string;
+    epkInquiry: (profile: string) => string;
   };
 };
 
+/**
+ * EPK bio from Sergjio's own text (docs/epk-sergjio-text-de-en.pdf), split into
+ * its paragraphs so the Live-EPK and the DJ-EPK can each show the ones that
+ * fit. German follows the supplied text apart from spelling; the English
+ * wording is lightly copy-edited.
+ */
+const BIO = {
+  de: {
+    origin:
+      "Sergjio ist ein vielseitiger Musiker, mikrotonaler Multiinstrumentalist und DJ aus der Schweiz mit kolumbianischen Wurzeln. Seine musikalische Reise begann bereits im frühen Kindesalter auf dem Cornet und führte ihn bis in die Eliteformation der Swiss Army Brass Band, wo er als Soprano Cornetist auf höchstem Niveau performte.",
+    band: "Heute ist Sergjio ein fester Bestandteil der Zürcher Cumbia Band «Los Malditos Basureros», wo er zu der Energie tropischer Live-Musik mit seinen Instrumenten und seinem Vibe beiträgt.",
+    electronic:
+      "Seine musikalische Heimat hat er schon früh in der elektronischen Musik gefunden. Sei es Downtempo, groovige, soulful House Music, mystischer orientalischer House oder auch treibender Techno und vieles mehr. Sein Herz schlägt in allen BPM-Raten.",
+    fusion:
+      "Unter seinem Alias Sergjio ist sein Markenzeichen die einzigartige Fusion aus DJ-Sets und Live-Instrumenten. Er integriert sein virtuos gespieltes Cornet nahtlos in seine Sets und erschafft so eine unverwechselbare Klangwelt zwischen Club-Energie und musikalischer Tiefe. Gleichzeitig bindet er die Saz (Bağlama), ein mikrotonales Saiteninstrument, in seine Performances ein und erweitert seinen Sound um orientalische Klangfarben sowie improvisatorische Elemente.",
+    style:
+      "Sein Stil wird zusätzlich durch Einflüsse verschiedenster Genres und Kulturen geprägt, wodurch ein moderner, grenzenloser Sound entsteht, der Club- und Live-Musik auf ein neues Level hebt.",
+    vinyl:
+      "Nebst digitalem DJing liebt er es, mit Vinyl-Schallplatten aufzulegen und mit Instrumenten zu fusionieren.",
+    closing:
+      "Sergjio steht für authentische Live-Performance, musikalische Vielfalt und die Verschmelzung von elektronischer Clubkultur mit echter Instrumentalkunst – ein Künstler, der Tanzmusik neu definiert.",
+  },
+  en: {
+    origin:
+      "Sergjio is a versatile musician, microtonal multi-instrumentalist and DJ from Switzerland with Colombian roots. His musical journey began in early childhood on the cornet and led him to the elite formation of the Swiss Army Brass Band, where he performed at the highest level as a soprano cornetist.",
+    band: "Today, Sergjio is a core member of the Zurich cumbia band Los Malditos Basureros, where he contributes to the energy of tropical live music with his instruments and his vibe.",
+    electronic:
+      "He found his musical home in electronic music early on. Be it downtempo, groovy, soulful house music, mystic oriental house or driving techno and much more. His heart beats in all BPM ranges.",
+    fusion:
+      "Performing under his alias Sergjio, his trademark is the unique fusion of DJ sets and live instruments. He seamlessly integrates his virtuosic cornet playing into his sets, creating a distinctive soundscape that balances club energy with musical depth. At the same time, he incorporates the saz (bağlama), a microtonal string instrument, into his performances, adding oriental tonal colors and improvisational elements to his sound.",
+    style:
+      "His style is further shaped by influences from a wide range of genres and cultures, resulting in a modern, boundary-pushing sound that elevates both club and live music to a new level.",
+    vinyl:
+      "Besides digital DJing, he loves to play vinyl records and fuse them with live instruments.",
+    closing:
+      "Sergjio stands for authentic live performance, musical diversity and the fusion of electronic club culture with real instrumental artistry — an artist redefining dance music.",
+  },
+} as const;
+
 export const DICT: Record<Locale, Dict> = {
   de: {
-    nav: { story: "Story", dj: "DJ Sets", music: "Musik", tour: "Live Termine", booking: "Booking" },
+    nav: { story: "Story", dj: "DJ Sets", music: "Musik", tour: "Live Termine", epk: "EPK", booking: "Booking" },
     common: {
       available: "Weltweit verfügbar",
       listen: "Hören",
@@ -141,7 +201,6 @@ export const DICT: Record<Locale, Dict> = {
       skipToContent: "Zum Inhalt springen",
       menu: "Menü öffnen",
       closeMenu: "Menü schliessen",
-      pressKit: "Press Kit (PDF)",
     },
     home: {
       location: "Schweiz · Weltweit verfügbar",
@@ -225,6 +284,38 @@ export const DICT: Record<Locale, Dict> = {
       sendEmail: "E-Mail senden",
       sendWa: "Per WhatsApp senden",
     },
+    epk: {
+      label: "Electronic Press Kit",
+      title: "EPK",
+      tagline: "Live Multiinstrumentalist & DJ (COL/CH)",
+      intro: BIO.de.origin,
+      open: "EPK öffnen",
+      bioTitle: "Bio",
+      videosTitle: "Videos",
+      photosTitle: "Pressefotos",
+      photosNote: "Web-Auflösung · Originale in voller Auflösung auf Anfrage",
+      download: "Download",
+      referencesTitle: "Referenzen",
+      riderTitle: "Technical Rider",
+      riderText: "Der Technical Rider ist auf Anfrage erhältlich.",
+      riderButton: "Rider anfragen",
+      contactTitle: "Booking-Kontakt",
+      whatsapp: "WhatsApp",
+      profiles: {
+        live: {
+          title: "Live-EPK",
+          sub: "Cornet · Saz (Bağlama)",
+          teaser: "Live-Auftritte mit Cornet und Saz (Bağlama).",
+          bio: [BIO.de.origin, BIO.de.band, BIO.de.fusion, BIO.de.style, BIO.de.closing],
+        },
+        dj: {
+          title: "DJ-EPK",
+          sub: "DJ-Sets · Digital & Vinyl",
+          teaser: "DJ-Sets mit Live-Instrumenten — digital oder auf Vinyl.",
+          bio: [BIO.de.origin, BIO.de.electronic, BIO.de.fusion, BIO.de.style, BIO.de.vinyl, BIO.de.closing],
+        },
+      },
+    },
     footer: {
       listenOn: "Hören auf",
       followOn: "Folgen auf",
@@ -237,11 +328,13 @@ export const DICT: Record<Locale, Dict> = {
         `Ciao Sergjio, ich habe eine Frage zu deinem Auftritt "${title}" am ${date} im ${venue}. Gibt es dazu Fotos, Aufnahmen oder mehr Infos?`,
       bookingInquiry: (category, name, msg) =>
         `Ciao Sergjio, Booking-Anfrage (${category}) von ${name || "..."}: ${msg || "..."}`,
+      epkInquiry: (profile) =>
+        `Ciao Sergjio, ich habe dein ${profile} gesehen und möchte dich für einen Auftritt anfragen.`,
     },
   },
 
   en: {
-    nav: { story: "Story", dj: "DJ Sets", music: "Music", tour: "Live Shows", booking: "Booking" },
+    nav: { story: "Story", dj: "DJ Sets", music: "Music", tour: "Live Shows", epk: "EPK", booking: "Booking" },
     common: {
       available: "Available worldwide",
       listen: "Listen",
@@ -269,7 +362,6 @@ export const DICT: Record<Locale, Dict> = {
       skipToContent: "Skip to content",
       menu: "Open menu",
       closeMenu: "Close menu",
-      pressKit: "Press Kit (PDF)",
     },
     home: {
       location: "Switzerland · Available worldwide",
@@ -353,6 +445,38 @@ export const DICT: Record<Locale, Dict> = {
       sendEmail: "Send Email",
       sendWa: "Send via WhatsApp",
     },
+    epk: {
+      label: "Electronic Press Kit",
+      title: "EPK",
+      tagline: "Live Multi-Instrumentalist & DJ (COL/CH)",
+      intro: BIO.en.origin,
+      open: "Open EPK",
+      bioTitle: "Bio",
+      videosTitle: "Videos",
+      photosTitle: "Press Photos",
+      photosNote: "Web resolution · Full-resolution originals on request",
+      download: "Download",
+      referencesTitle: "References",
+      riderTitle: "Technical Rider",
+      riderText: "The technical rider is available on request.",
+      riderButton: "Request rider",
+      contactTitle: "Booking Contact",
+      whatsapp: "WhatsApp",
+      profiles: {
+        live: {
+          title: "Live EPK",
+          sub: "Cornet · Saz (Bağlama)",
+          teaser: "Live performances with cornet and saz (bağlama).",
+          bio: [BIO.en.origin, BIO.en.band, BIO.en.fusion, BIO.en.style, BIO.en.closing],
+        },
+        dj: {
+          title: "DJ EPK",
+          sub: "DJ Sets · Digital & Vinyl",
+          teaser: "DJ sets with live instruments — digital or on vinyl.",
+          bio: [BIO.en.origin, BIO.en.electronic, BIO.en.fusion, BIO.en.style, BIO.en.vinyl, BIO.en.closing],
+        },
+      },
+    },
     footer: {
       listenOn: "Listen on",
       followOn: "Follow on",
@@ -365,6 +489,8 @@ export const DICT: Record<Locale, Dict> = {
         `Hi Sergjio, I have a question about your show "${title}" on ${date} at ${venue}. Are there any photos, recordings or more info?`,
       bookingInquiry: (category, name, msg) =>
         `Hi Sergjio, booking inquiry (${category}) from ${name || "..."}: ${msg || "..."}`,
+      epkInquiry: (profile) =>
+        `Hi Sergjio, I've seen your ${profile} and would like to book you for a show.`,
     },
   },
 };
@@ -376,6 +502,7 @@ export const NAV_KEYS = [
   { key: "dj", href: "/dj" },
   { key: "music", href: "/releases" },
   { key: "tour", href: "/tour" },
+  { key: "epk", href: "/epk" },
   { key: "booking", href: "/booking" },
 ] as const;
 

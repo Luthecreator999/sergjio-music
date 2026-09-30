@@ -7,6 +7,11 @@ const nextConfig: NextConfig = {
     // Allow optimizing the YouTube thumbnail posters used in the embed facades.
     remotePatterns: [{ protocol: "https", hostname: "i.ytimg.com" }],
   },
+  // The former "Press Kit (PDF)" was only a gig flyer and is gone; send old
+  // links to the EPK instead of a 404.
+  async redirects() {
+    return [{ source: "/press/sergjio-presskit.pdf", destination: "/de/epk", permanent: false }];
+  },
   // Static security headers (safe subset). A full CSP is intentionally deferred:
   // it needs 'unsafe-inline' for JSON-LD + Tailwind and the youtube/soundcloud
   // frame origins, and must be validated against a live deploy.

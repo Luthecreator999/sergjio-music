@@ -16,7 +16,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
 
 const GALLERY = [
   "/images/dj-live-2.jpg",
-  "/images/dj-live-3.jpg",
+  "/images/dj-live-1.jpg",
   "/images/archive-dj-2.jpeg",
   "/images/dj-live-6.jpg",
   "/images/archive-dj-1.jpeg",

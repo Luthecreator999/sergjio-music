@@ -293,7 +293,7 @@ export const DICT: Record<Locale, Dict> = {
       bioTitle: "Bio",
       videosTitle: "Videos",
       photosTitle: "Pressefotos",
-      photosNote: "Web-Auflösung · Originale in voller Auflösung auf Anfrage",
+      photosNote: "Download in der grössten vorhandenen Auflösung · weitere Originale auf Anfrage",
       download: "Download",
       referencesTitle: "Referenzen",
       riderTitle: "Technical Rider",
@@ -323,9 +323,9 @@ export const DICT: Record<Locale, Dict> = {
     },
     whatsapp: {
       eventInquiry: (title, date, venue) =>
-        `Ciao Sergjio, ich interessiere mich für den Event "${title}" am ${date} im ${venue}. Hast du einen Ticket-Link oder mehr Infos für mich?`,
+        `Ciao Sergjio, ich interessiere mich für den Event "${title}" am ${date} (${venue}). Hast du einen Ticket-Link oder mehr Infos für mich?`,
       eventPastInquiry: (title, date, venue) =>
-        `Ciao Sergjio, ich habe eine Frage zu deinem Auftritt "${title}" am ${date} im ${venue}. Gibt es dazu Fotos, Aufnahmen oder mehr Infos?`,
+        `Ciao Sergjio, ich habe eine Frage zu deinem Auftritt "${title}" am ${date} (${venue}). Gibt es dazu Fotos, Aufnahmen oder mehr Infos?`,
       bookingInquiry: (category, name, msg) =>
         `Ciao Sergjio, Booking-Anfrage (${category}) von ${name || "..."}: ${msg || "..."}`,
       epkInquiry: (profile) =>
@@ -454,7 +454,7 @@ export const DICT: Record<Locale, Dict> = {
       bioTitle: "Bio",
       videosTitle: "Videos",
       photosTitle: "Press Photos",
-      photosNote: "Web resolution · Full-resolution originals on request",
+      photosNote: "Downloads in the highest available resolution · more originals on request",
       download: "Download",
       referencesTitle: "References",
       riderTitle: "Technical Rider",

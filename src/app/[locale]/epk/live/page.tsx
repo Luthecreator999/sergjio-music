@@ -3,8 +3,8 @@ import EpkPage from "@/components/EpkPage";
 import { isLocale, type Locale } from "@/lib/i18n";
 import { pageMetadata } from "@/lib/seo";
 
-// Regenerate daily so played shows move into the references without a redeploy.
-export const revalidate = 86400;
+// Regenerate hourly so played shows move into the references without a redeploy.
+export const revalidate = 3600;
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;

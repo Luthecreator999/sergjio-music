@@ -8,19 +8,27 @@ import PageHero from "@/components/PageHero";
 import SiteVideo from "@/components/SiteVideo";
 import SoundcloudEmbed from "@/components/SoundcloudEmbed";
 import { VIDEOS } from "@/lib/media";
+import { PHOTOS, type Photo } from "@/lib/photos";
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
   return isLocale(locale) ? pageMetadata(locale, "dj") : {};
 }
 
-const GALLERY = [
-  "/images/dj-live-2.jpg",
-  "/images/dj-live-1.jpg",
-  "/images/archive-dj-2.jpeg",
-  "/images/dj-live-6.jpg",
-  "/images/archive-dj-1.jpeg",
-  "/images/dj-booth-hero.jpg",
+// Twelve photos fill both the two-column phone grid and the three-column desktop grid.
+const GALLERY: Photo[] = [
+  PHOTOS.vinylRecord,
+  PHOTOS.vinylTurntable,
+  PHOTOS.vinylMixer,
+  PHOTOS.cornetTurntable,
+  PHOTOS.cornetDjSet,
+  PHOTOS.sazDjSet,
+  PHOTOS.djSide,
+  PHOTOS.djMixerDetail,
+  PHOTOS.djProfile,
+  PHOTOS.djMixing,
+  PHOTOS.djLaughing,
+  PHOTOS.djJogWheel,
 ];
 
 export default async function DJPage({ params }: { params: Promise<{ locale: string }> }) {
@@ -95,15 +103,16 @@ export default async function DJPage({ params }: { params: Promise<{ locale: str
       {/* Gallery — uniform grid, all squares */}
       <section className="container-site py-12">
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-4 sm:gap-5">
-          {GALLERY.map((src, i) => (
-            <div key={src} className="tile relative aspect-square overflow-hidden">
+          {GALLERY.map((photo) => (
+            <div key={photo.src} className="tile relative aspect-square overflow-hidden">
               <Image
-                src={src}
-                alt={`DJ Sergjio live — photo ${i + 1}`}
+                src={photo.src}
+                alt={photo.alt[locale]}
                 fill
                 loading="lazy"
                 sizes="(min-width: 768px) 33vw, 50vw"
-                className="object-cover object-[center_25%] hover:scale-105 transition-transform duration-500"
+                className="object-cover hover:scale-105 transition-transform duration-500"
+                style={{ objectPosition: photo.position ?? "center 25%" }}
               />
             </div>
           ))}

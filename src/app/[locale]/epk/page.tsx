@@ -52,8 +52,8 @@ export default async function EpkIndexPage({ params }: { params: Promise<{ local
               >
                 <div className="relative aspect-[4/3] overflow-hidden">
                   <Image
-                    src={profile.hero.image}
-                    alt={profile.hero.alt}
+                    src={profile.hero.photo.src}
+                    alt={profile.hero.photo.alt[locale]}
                     fill
                     sizes="(min-width: 768px) 50vw, 100vw"
                     className="object-cover group-hover:scale-105 transition-transform duration-500"

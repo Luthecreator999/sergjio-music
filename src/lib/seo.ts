@@ -6,8 +6,9 @@ import type { Event } from "./events";
 /** Canonical production origin (custom domain on Vercel). */
 export const SITE_URL = "https://sergjiomusic.ch";
 
-/** Social preview image (1200×630, generated into /public). */
-export const OG_IMAGE = "/og.jpg";
+/** Social preview image (1200×630, cropped from the electro saz still). A new
+ *  file name makes link previews pick up a changed image instead of a cached one. */
+export const OG_IMAGE = "/og-sergjio.jpg";
 
 /** Route path for each page key, appended after the locale segment. */
 export const PAGE_PATHS = {

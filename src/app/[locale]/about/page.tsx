@@ -3,6 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { isLocale, t, localizedHref, type Locale } from "@/lib/i18n";
 import { pageMetadata } from "@/lib/seo";
+import { PHOTOS } from "@/lib/photos";
 import PageHero from "@/components/PageHero";
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }) {
@@ -50,11 +51,11 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
   return (
     <>
       <PageHero
-        image="/images/archive-live-1.jpg"
-        imageAlt="Sergjio playing the Soprano Cornet on stage"
+        image={PHOTOS.cornetDjSetWide.src}
+        imageAlt={PHOTOS.cornetDjSetWide.alt[locale]}
         label={tr.about.label}
         title={tr.about.title}
-        objectPosition="center 30%"
+        objectPosition={PHOTOS.cornetDjSetWide.position}
         size="tall"
       />
 
@@ -63,11 +64,11 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-5">
           <div className="tile-quiet relative aspect-[3/4]">
             <Image
-              src={"/images/archive-live-2.jpg"}
-              alt="Sergjio with Saz live"
+              src={PHOTOS.sazDjSetSide.src}
+              alt={PHOTOS.sazDjSetSide.alt[locale]}
               fill
               sizes="(min-width: 1024px) 50vw, 100vw"
-              className="object-cover object-[70%_35%]"
+              className="object-cover object-[center_45%]"
             />
           </div>
           <div className="tile p-8 sm:p-12">

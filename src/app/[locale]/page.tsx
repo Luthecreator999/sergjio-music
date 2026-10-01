@@ -6,12 +6,13 @@ import EventCard from "@/components/EventCard";
 import YouTubeEmbed from "@/components/YouTubeEmbed";
 import SocialIcon from "@/components/SocialIcon";
 import { YOUTUBE_VIDEOS } from "@/lib/youtube";
+import { PHOTOS } from "@/lib/photos";
 import { isLocale, t, localizedHref, type Locale } from "@/lib/i18n";
 import { pageMetadata } from "@/lib/seo";
 import { notFound } from "next/navigation";
 
-// Regenerate daily so the "upcoming shows" preview stays current.
-export const revalidate = 86400;
+// Regenerate hourly so the "upcoming shows" preview stays current.
+export const revalidate = 3600;
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
@@ -31,12 +32,12 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
       <section className="container-site pt-24 sm:pt-28">
         <div className="relative tile-quiet aspect-[4/5] sm:aspect-[16/10] lg:aspect-[16/7] flex items-end overflow-hidden">
           <Image
-            src={"/images/tour-hero.jpg"}
-            alt="Sergjio performing live with microtonal instruments"
+            src={PHOTOS.cornetStage.src}
+            alt={PHOTOS.cornetStage.alt[locale]}
             fill
             priority
             sizes="(min-width: 1280px) 1184px, 100vw"
-            className="object-cover object-[70%_35%]"
+            className="object-cover object-[center_30%]"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-ink via-ink/40 to-transparent sm:bg-gradient-to-b sm:from-ink/40 sm:via-ink/30 sm:to-ink/90" />
 

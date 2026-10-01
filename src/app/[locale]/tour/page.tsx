@@ -2,12 +2,13 @@ import { upcomingEvents, pastEvents } from "@/lib/events";
 import EventCard from "@/components/EventCard";
 import PageHero from "@/components/PageHero";
 import JsonLd from "@/components/JsonLd";
+import { PHOTOS } from "@/lib/photos";
 import { isLocale, t, type Locale } from "@/lib/i18n";
 import { pageMetadata, eventsSchema } from "@/lib/seo";
 import { notFound } from "next/navigation";
 
-// Regenerate daily so the upcoming/past split advances without a redeploy.
-export const revalidate = 86400;
+// Regenerate hourly so a played show moves to the past shows soon after midnight.
+export const revalidate = 3600;
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
@@ -34,11 +35,11 @@ export default async function TourPage({ params }: { params: Promise<{ locale: s
     <>
       {upcoming.length > 0 && <JsonLd data={eventsSchema(upcoming, locale)} />}
       <PageHero
-        image="/images/tour-hero.jpg"
-        imageAlt="Sergjio performing live on stage"
+        image={PHOTOS.djSideWide.src}
+        imageAlt={PHOTOS.djSideWide.alt[locale]}
         label={tr.tour.label}
         title={tr.tour.title}
-        objectPosition="70% 35%"
+        objectPosition={PHOTOS.djSideWide.position}
         size="wide"
       />
 

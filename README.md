@@ -62,7 +62,8 @@ src/
     seo.ts                 # Routenliste, Titel/Descriptions, JSON-LD
     site.ts                # SITE-Konstanten (Email, Phone, Social, Streaming)
     events.ts              # Alle Termine, sortiert in upcoming / past
-    epk.ts                 # Fotos + Videos der beiden EPKs
+    photos.ts              # Fotobibliothek: Dateien, Titel und alt-Texte (DE/EN)
+    epk.ts                 # Welche Fotos + Videos die beiden EPKs zeigen
     media.ts, youtube.ts   # Video-Registries
     whatsapp.ts            # WhatsApp-Deep-Link-Generator
 public/
@@ -75,11 +76,12 @@ BRANDING.md                # Markenregeln (Farben, Typo, Komponenten)
 
 ## Inhalt
 
-- **Events**: gepflegt in [src/lib/events.ts](src/lib/events.ts). Vergangene Termine landen automatisch unter "Past Shows", alles ab heute unter "Upcoming" (die Seiten werden täglich neu generiert). `kinds` legt fest, ob ein Termin als Referenz im Live-EPK, im DJ-EPK oder in beiden erscheint.
-- **EPK**: `/epk` führt zu Live-EPK und DJ-EPK. Die Bio stammt aus [docs/epk-sergjio-text-de-en.pdf](docs/epk-sergjio-text-de-en.pdf) und liegt in [src/lib/i18n.ts](src/lib/i18n.ts) (`BIO`). Pressefotos und Videos pro EPK stehen in [src/lib/epk.ts](src/lib/epk.ts).
-- **Fotos/Videos tauschen**: Datei nach `public/images/` bzw. `public/videos/` legen und den Pfad in der jeweiligen Seite oder in `epk.ts` anpassen. Neue Videos zuerst in [src/lib/media.ts](src/lib/media.ts) registrieren (Masse mit `ffprobe` oder `mdls` auslesen).
+- **Events**: gepflegt in [src/lib/events.ts](src/lib/events.ts). Vergangene Termine landen automatisch unter "Past Shows", alles ab heute unter "Upcoming" (die Seiten werden stündlich neu generiert, ein gespielter Termin wandert also kurz nach Mitternacht nach unten). `kinds` legt fest, ob ein Termin als Referenz im Live-EPK, im DJ-EPK oder in beiden erscheint.
+- **EPK**: `/epk` führt zu Live-EPK und DJ-EPK. Die Bio stammt aus [docs/epk-sergjio-text-de-en.pdf](docs/epk-sergjio-text-de-en.pdf) und liegt in [src/lib/i18n.ts](src/lib/i18n.ts) (`BIO`). Welche Fotos und Videos ein EPK zeigt, steht in [src/lib/epk.ts](src/lib/epk.ts).
+- **Fotos**: Jedes Galerie- und Pressefoto ist einmal in [src/lib/photos.ts](src/lib/photos.ts) eingetragen, mit Titel und alt-Text auf Deutsch und Englisch. Neues Foto: Web-JPEG (ca. 1200 px breit, sRGB, sprechender Dateiname) nach `public/images/`, optional die volle Auflösung nach `public/press/` für den Presse-Download, Eintrag in `photos.ts`, dann in `dj/page.tsx` oder `epk.ts` verwenden.
+- **Videos**: Datei nach `public/videos/` legen und in [src/lib/media.ts](src/lib/media.ts) registrieren (Masse mit `ffprobe` oder `mdls` auslesen).
 - **WhatsApp-Links**: jeder Event-Knopf öffnet WhatsApp mit voreingestelltem Text:
-  > Ciao Sergjio, ich interessiere mich für den Event "{Titel}" am {Datum} im {Venue}. Hast du einen Ticket-Link oder mehr Infos für mich?
+  > Ciao Sergjio, ich interessiere mich für den Event "{Titel}" am {Datum} ({Venue}). Hast du einen Ticket-Link oder mehr Infos für mich?
   Nummer: **+41 79 966 21 77**.
 
 ## Branding

@@ -30,8 +30,8 @@ export default function EpkPage({ locale, kind }: { locale: Locale; kind: EventK
   return (
     <>
       <PageHero
-        image={profile.hero.image}
-        imageAlt={profile.hero.alt}
+        image={profile.hero.photo.src}
+        imageAlt={profile.hero.photo.alt[locale]}
         label={tr.epk.label}
         title={copy.title}
         subtitle={copy.sub}
@@ -58,8 +58,8 @@ export default function EpkPage({ locale, kind }: { locale: Locale; kind: EventK
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-5">
           <div className="tile-quiet relative aspect-[4/5] lg:aspect-auto">
             <Image
-              src={profile.portrait.image}
-              alt={profile.portrait.alt}
+              src={profile.portrait.photo.src}
+              alt={profile.portrait.photo.alt[locale]}
               fill
               sizes="(min-width: 1024px) 50vw, 100vw"
               className="object-cover"
@@ -113,44 +113,57 @@ export default function EpkPage({ locale, kind }: { locale: Locale; kind: EventK
         </section>
       )}
 
-      {/* Press photos — uniform grid, each with a direct download */}
+      {/* Press photos — uniform grid, each titled and with a direct download */}
       {profile.photos.length > 0 && (
         <section className="container-site py-16">
           <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-3 mb-8">
             <h2 className="uppercase-brand text-display-lg text-white">{tr.epk.photosTitle}</h2>
             <p className="uppercase-brand text-[11px] text-cream/60">{tr.epk.photosNote}</p>
           </div>
-          <div className="grid grid-cols-2 md:grid-cols-3 gap-4 sm:gap-5">
-            {profile.photos.map((photo, i) => (
-              <div key={photo.src} className="tile relative aspect-square group">
-                <Image
-                  src={photo.src}
-                  alt={photo.alt}
-                  fill
-                  loading="lazy"
-                  sizes="(min-width: 768px) 33vw, 50vw"
-                  className="object-cover group-hover:scale-105 transition-transform duration-500"
-                  style={{ objectPosition: photo.position ?? "center 25%" }}
-                />
-                <a
-                  href={photo.src}
-                  download={`sergjio-${kind}-${i + 1}${photo.src.match(/\.\w+$/)?.[0] ?? ""}`}
-                  aria-label={`${tr.epk.download}: ${photo.alt}`}
-                  className="absolute bottom-3 right-3 sm:bottom-4 sm:right-4 inline-flex items-center gap-2 p-2.5 sm:px-4 sm:py-2.5 uppercase-brand text-[11px] text-white rounded-full bg-ink/70 backdrop-blur-sm border border-[var(--hairline-strong)] hover:bg-cream hover:text-ink transition-colors duration-200"
-                >
-                  <span className="hidden sm:inline">{tr.epk.download}</span>
-                  <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
-                    <path
-                      d="M7 1v8m0 0L3.5 5.5M7 9l3.5-3.5M1.5 12.5h11"
-                      stroke="currentColor"
-                      strokeWidth="1.75"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-x-4 gap-y-6 sm:gap-x-5 sm:gap-y-8">
+            {profile.photos.map((photo, i) => {
+              // With an odd count the last photo would sit alone in the two-column
+              // phone grid — let it span the full width there instead.
+              const wide = i === profile.photos.length - 1 && profile.photos.length % 2 === 1;
+              const file = photo.press ?? photo.src;
+              return (
+                <figure key={photo.src} className={wide ? "col-span-2 md:col-span-1" : undefined}>
+                  <div
+                    className={`tile relative group ${wide ? "aspect-[2/1] md:aspect-square" : "aspect-square"}`}
+                  >
+                    <Image
+                      src={photo.src}
+                      alt={photo.alt[locale]}
+                      fill
+                      loading="lazy"
+                      sizes={wide ? "(min-width: 768px) 33vw, 100vw" : "(min-width: 768px) 33vw, 50vw"}
+                      className="object-cover group-hover:scale-105 transition-transform duration-500"
+                      style={{ objectPosition: photo.position ?? "center 25%" }}
                     />
-                  </svg>
-                </a>
-              </div>
-            ))}
+                    <a
+                      href={file}
+                      download
+                      aria-label={`${tr.epk.download}: ${photo.title[locale]}`}
+                      className="absolute bottom-3 right-3 sm:bottom-4 sm:right-4 inline-flex items-center gap-2 p-2.5 sm:px-4 sm:py-2.5 uppercase-brand text-[11px] text-white rounded-full bg-ink/70 backdrop-blur-sm border border-[var(--hairline-strong)] hover:bg-cream hover:text-ink transition-colors duration-200"
+                    >
+                      <span className="hidden sm:inline">{tr.epk.download}</span>
+                      <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+                        <path
+                          d="M7 1v8m0 0L3.5 5.5M7 9l3.5-3.5M1.5 12.5h11"
+                          stroke="currentColor"
+                          strokeWidth="1.75"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                        />
+                      </svg>
+                    </a>
+                  </div>
+                  <figcaption className="uppercase-brand text-[11px] text-cream/70 mt-3 px-1">
+                    {photo.title[locale]}
+                  </figcaption>
+                </figure>
+              );
+            })}
           </div>
         </section>
       )}

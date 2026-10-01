@@ -27,23 +27,40 @@ export type Event = {
 // the module in memory, so a constant would still hold yesterday's date when a
 // page regenerates. Static pages only call this when they are (re)generated,
 // so any page using upcoming/pastEvents must set `export const revalidate`
-// (home, tour and the EPK pages do, at 24h) to keep the split fresh.
+// (home, tour and the EPK pages do, hourly) so a show moves to the past
+// shows soon after midnight.
 const today = () => new Date().toLocaleDateString("sv-SE", { timeZone: "Europe/Zurich" });
 
 export const EVENTS: Event[] = [
   {
-    id: "fiesta-cumbia-vario-olten-2026-09-19",
+    id: "waxnight-galicia-olten-2026-10-03",
+    kinds: ["dj"],
+    date: "2026-10-03",
+    displayDate: { de: "03. Oktober 2026", en: "October 03, 2026" },
+    time: "21:00",
+    city: "Olten",
+    country: { de: "Schweiz", en: "Switzerland" },
+    venue: "Bar Galicia",
+    title: "Waxnight @ Galicia",
+    format: { de: "Vinyl Only Night — DJ-Set", en: "Vinyl Only Night — DJ Set" },
+    description: {
+      de: "Vinyl Only Night in der Bar Galicia in Olten, 21:00 bis 02:00 Uhr. An den Plattenspielern: Data Alchemist, DJ Lord, Sergjio und Frontline. House, Minimal-Techno, Techno, Breaks und Drum'n'Bass. Eintritt: Kollekte. Ab 18 Jahren.",
+      en: "Vinyl-only night at Bar Galicia in Olten, 9 pm to 2 am. On the decks: Data Alchemist, DJ Lord, Sergjio and Frontline. House, minimal techno, techno, breaks and drum'n'bass. Entry by donation. 18+.",
+    },
+  },
+  {
+    id: "basureros-vario-olten-2026-09-19",
     kinds: ["live"],
     date: "2026-09-19",
     displayDate: { de: "19. September 2026", en: "September 19, 2026" },
     city: "Olten",
     country: { de: "Schweiz", en: "Switzerland" },
     venue: "Vario Bar, Olten",
-    title: "Fiesta Cumbia",
+    title: "Los Malditos Basureros",
     format: { de: "Cumbia — Live", en: "Cumbia — Live" },
     description: {
-      de: "Fiesta Cumbia mit Los Malditos Basureros in der Vario Bar Olten.",
-      en: "Fiesta Cumbia with Los Malditos Basureros at Vario Bar Olten.",
+      de: "Live-Konzert mit Los Malditos Basureros in der Vario Bar Olten.",
+      en: "Live concert with Los Malditos Basureros at Vario Bar Olten.",
     },
     links: [
       { label: "Los Malditos Basureros", url: "https://www.instagram.com/losmalditosbasureros/" },

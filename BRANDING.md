@@ -77,7 +77,7 @@ Letter-Spacing: `tracking-brand` = `0.02em` für Caps-Texte.
 
 Alle Event-Cards verlinken zu WhatsApp mit dem Pre-Set-Text:
 
-> Ciao Sergjio, ich interessiere mich für den Event "{Title}" am {Datum} im {Venue}. Hast du einen Ticket-Link oder mehr Infos für mich?
+> Ciao Sergjio, ich interessiere mich für den Event "{Title}" am {Datum} ({Venue}). Hast du einen Ticket-Link oder mehr Infos für mich?
 
 - Nummer: **+41 79 966 21 77**
 - Implementiert in [src/lib/whatsapp.ts](src/lib/whatsapp.ts)

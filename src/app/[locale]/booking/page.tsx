@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import BookingForm from "@/components/BookingForm";
 import PageHero from "@/components/PageHero";
 import { EPK, EPK_KINDS } from "@/lib/epk";
+import { PHOTOS } from "@/lib/photos";
 import { SITE } from "@/lib/site";
 import { isLocale, t, localizedHref, type Locale } from "@/lib/i18n";
 import { pageMetadata, PAGE_PATHS } from "@/lib/seo";
@@ -22,8 +23,8 @@ export default async function BookingPage({ params }: { params: Promise<{ locale
   return (
     <>
       <PageHero
-        image="/images/booking-portrait.jpg"
-        imageAlt="Sergjio performing live — booking"
+        image={PHOTOS.sazStage.src}
+        imageAlt={PHOTOS.sazStage.alt[locale]}
         label={tr.booking.label}
         title={tr.booking.title}
         subtitle={tr.booking.sub}
@@ -36,8 +37,8 @@ export default async function BookingPage({ params }: { params: Promise<{ locale
           <div className="flex flex-col gap-4 sm:gap-5">
             <div className="tile-quiet relative aspect-[3/4]">
               <Image
-                src={"/images/archive-dj-1.jpeg"}
-                alt="Sergjio at the decks"
+                src={PHOTOS.djLaughing.src}
+                alt={PHOTOS.djLaughing.alt[locale]}
                 fill
                 sizes="(min-width: 1024px) 42vw, 100vw"
                 className="object-cover object-[center_30%]"
